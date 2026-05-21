@@ -1,0 +1,99 @@
+{
+  "whichWasWorse": [
+    {
+      "title": "Cafeteria Seat Rejection vs Left on Read",
+      "category": "Which Was Worse?",
+      "prompt": "Which was worse: getting rejected with fries in your hand or being left on read?"
+    },
+    {
+      "title": "Pencil Sharpener Walk vs Reading Aloud in Class",
+      "category": "Which Was Worse?",
+      "prompt": "Which was worse: the loudest walk of your academic career or discovering a paragraph has names?"
+    },
+    {
+      "title": "Lip Gloss in Wind vs Wet Hair on the Bus",
+      "category": "Which Was Worse?",
+      "prompt": "Which was worse: hair glued to your mouth or cold drip marks on a vinyl seat?"
+    },
+    {
+      "title": "Braces Rubber Bands vs Retainer Case",
+      "category": "Which Was Worse?",
+      "prompt": "Which was worse: snapping a tiny band mid-sentence or losing the case during lunch?"
+    },
+    {
+      "title": "School Picture Day vs Slow Dance",
+      "category": "Which Was Worse?",
+      "prompt": "Which was worse: one printed mistake forever or three minutes of arms-length panic?"
+    },
+    {
+      "title": "Jelly Shoes vs Wet Jeans Cuff",
+      "category": "Which Was Worse?",
+      "prompt": "Which was worse: glitter blisters or denim dragging bathroom floor evidence?"
+    },
+    {
+      "title": "Passing Notes vs Screenshot Receipts",
+      "category": "Which Was Worse?",
+      "prompt": "Which was worse: folded paper betrayal or a digital exhibit with timestamps?"
+    },
+    {
+      "title": "AIM Away Message vs MySpace Top 8",
+      "category": "Which Was Worse?",
+      "prompt": "Which was worse: vague lyrics aimed at one person or public ranking with consequences?"
+    }
+  ],
+  "docket": [
+    {
+      "title": "Lip Gloss in Wind vs Lip Oil",
+      "category": "Beauty/Fashion Crime",
+      "status": "In Court"
+    },
+    {
+      "title": "Body Splash vs Luxury Body Oil",
+      "category": "Nostalgia vs Modern",
+      "status": "Filed"
+    },
+    {
+      "title": "Braces Rubber Bands vs Whitening Strips",
+      "category": "Nostalgia vs Modern",
+      "status": "Under Review"
+    },
+    {
+      "title": "Claire's Piercing Gun vs Dermatologist",
+      "category": "Beauty/Fashion Crime",
+      "status": "Case Dismissed"
+    },
+    {
+      "title": "Tamagotchi vs Self-Care App",
+      "category": "Nostalgia vs Modern",
+      "status": "Filed"
+    },
+    {
+      "title": "Cootie Catcher vs Astrology App",
+      "category": "Nostalgia vs Modern",
+      "status": "Under Review"
+    }
+  ],
+  "seededIdeas": {
+    "nostalgiaVsModern": [
+      "Body Splash vs Luxury Body Oil",
+      "BonBons Nail Polish vs Gel Manicure",
+      "Butterfly Clips vs Slick-Back Hair Oil",
+      "Lisa Frank vs Minimal Planner",
+      "Slap Bracelet vs Apple Watch",
+      "Tamagotchi vs Self-Care App",
+      "Cootie Catcher vs Astrology App",
+      "Troll Doll vs Labubu",
+      "Orbitz vs Kombucha",
+      "Strawberry Shortcake vs Luxury Perfume"
+    ],
+    "wellnessCommonSense": [
+      "Hydration Packet vs Banana + Water",
+      "Sleep Gummies vs Going to Bed",
+      "Blue Light Glasses vs Going to Bed",
+      "Detox Tea vs Liver",
+      "Greens Powder vs Frozen Vegetables",
+      "Collagen Powder vs Sunscreen",
+      "Prebiotic Soda vs Beans"
+    ]
+  }
+}
