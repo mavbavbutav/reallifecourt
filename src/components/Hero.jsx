@@ -1,6 +1,8 @@
 import ActionButtons from "./ActionButtons.jsx";
 import { siteConfig } from "../../config/siteConfig.js";
 
+const heroImage = `${import.meta.env.BASE_URL}assets/real-life-court-hero.png`;
+
 const quickActions = [
   { label: "Submit a Case", href: "#submit", tone: "primary" },
   { label: "Which Was Worse?", href: "#which-was-worse" },
@@ -13,7 +15,7 @@ export default function Hero() {
   return (
     <section className="hero section-shell" id="home">
       <div className="hero-visual" aria-hidden="true">
-        <img src="/assets/real-life-court-hero.png" alt="" />
+        <img src={heroImage} alt="" />
       </div>
 
       <div className="hero-content">

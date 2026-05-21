@@ -24,6 +24,12 @@ npm run dev
 npm run build
 ```
 
+For the temporary J&J subpath deployment:
+
+```bash
+npm run build:reallifecourt
+```
+
 ## Form Endpoint
 
 Set `VITE_CASE_FORM_ENDPOINT` in `.env` to POST submissions as JSON:
