@@ -28,8 +28,8 @@ export default function Header() {
         ))}
       </nav>
 
-      <a className="header-cta" href="#submit">
-        Submit a Case
+      <a className="header-cta" href="#submit" aria-label="Submit a Case">
+        Submit
       </a>
     </header>
   );

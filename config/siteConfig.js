@@ -1,4 +1,8 @@
-export const CASE_FORM_ENDPOINT = import.meta.env.VITE_CASE_FORM_ENDPOINT || "";
+const CLOUDFLARE_CASE_FORM_ENDPOINT =
+  "https://jje-founding-five-form.johnmartinferguson.workers.dev";
+
+export const CASE_FORM_ENDPOINT =
+  import.meta.env.VITE_CASE_FORM_ENDPOINT || CLOUDFLARE_CASE_FORM_ENDPOINT;
 
 export const siteConfig = {
   title: "Real Life Court",

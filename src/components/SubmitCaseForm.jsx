@@ -27,6 +27,23 @@ function validateEmail(value) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
+function buildCloudflarePayload(form) {
+  return {
+    "Form type": "Real Life Court Case",
+    "Your case idea": form.caseIdea.trim(),
+    "Case type": form.caseType,
+    "Side A": form.sideA.trim(),
+    "Side B": form.sideB.trim(),
+    "Why relatable": form.whyRelatable.trim(),
+    "Suggested joke or burn line": form.burnLine.trim(),
+    "Credit permission": form.creditPermission,
+    "TikTok handle": form.tiktokHandle.trim(),
+    Email: form.email.trim(),
+    Source: "real-life-court-link-in-bio",
+    "Submitted at": new Date().toISOString(),
+  };
+}
+
 export default function SubmitCaseForm() {
   const [form, setForm] = useState(INITIAL_FORM);
   const [errors, setErrors] = useState({});
@@ -72,17 +89,15 @@ export default function SubmitCaseForm() {
       return;
     }
 
-    const payload = {
-      ...form,
-      email: form.email.trim(),
-      tiktokHandle: form.tiktokHandle.trim(),
-      submittedAt: new Date().toISOString(),
-      source: "real-life-court-link-in-bio",
-    };
+    const payload = buildCloudflarePayload(form);
+    const fallbackSuccessMessage =
+      "Your case has been entered into evidence. Court is now emotionally reviewing it. ⚖️";
 
     setStatus("submitting");
 
     try {
+      let result = {};
+
       if (CASE_FORM_ENDPOINT) {
         const response = await fetch(CASE_FORM_ENDPOINT, {
           method: "POST",
@@ -90,21 +105,24 @@ export default function SubmitCaseForm() {
           body: JSON.stringify(payload),
         });
 
-        if (!response.ok) {
-          throw new Error(`Form endpoint responded with ${response.status}`);
+        result = await response.json().catch(() => ({}));
+
+        if (!response.ok || result.ok === false) {
+          throw new Error(
+            result.message || `Form endpoint responded with ${response.status}`,
+          );
         }
       } else {
-        // Connect Google Forms, Formspree, Netlify Forms, or a custom backend by
-        // setting VITE_CASE_FORM_ENDPOINT and accepting this JSON payload.
+        // To switch away from the default Cloudflare Worker, set
+        // VITE_CASE_FORM_ENDPOINT to Google Forms, Formspree, Netlify Forms,
+        // or a custom backend that accepts this JSON payload.
         console.info("Real Life Court demo submission", payload);
       }
 
       setForm(INITIAL_FORM);
       setErrors({});
       setStatus("success");
-      setMessage(
-        "Your case has been entered into evidence. Court is now emotionally reviewing it. ⚖️",
-      );
+      setMessage(result.message || fallbackSuccessMessage);
     } catch (error) {
       console.error(error);
       setStatus("error");
@@ -122,6 +140,9 @@ export default function SubmitCaseForm() {
         <p>
           What nostalgic trauma, wellness gimmick, or adult nonsense should go on
           trial next?
+        </p>
+        <p className="submit-note">
+          Straight to the writing room. The comments will do the sentencing.
         </p>
       </div>
 

@@ -32,13 +32,19 @@ npm run build:reallifecourt
 
 ## Form Endpoint
 
-Set `VITE_CASE_FORM_ENDPOINT` in `.env` to POST submissions as JSON:
+The production default posts to the existing Cloudflare Worker:
+
+```text
+https://jje-founding-five-form.johnmartinferguson.workers.dev
+```
+
+Set `VITE_CASE_FORM_ENDPOINT` in `.env` only if you need to override that endpoint:
 
 ```bash
 VITE_CASE_FORM_ENDPOINT=https://your-form-endpoint.example
 ```
 
-If the endpoint is empty, the form runs in demo mode: it validates fields, logs the payload to the browser console, clears the form, and shows the success message. The submit handler in `src/components/SubmitCaseForm.jsx` is where you can connect Google Forms, Formspree, Netlify Forms, or a custom backend.
+The submit handler in `src/components/SubmitCaseForm.jsx` validates fields, sends the normalized JSON payload, clears the form, and shows the success message. If you intentionally remove the endpoint in `config/siteConfig.js`, the same handler can still run in demo mode by logging the payload to the browser console.
 
 ## Update Links
 

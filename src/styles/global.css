@@ -168,7 +168,7 @@ textarea:focus-visible {
 
 .header-cta {
   min-height: 44px;
-  padding: 0.75rem 1rem;
+  padding: 0.75rem 1.05rem;
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 999px;
   background: var(--paper);
@@ -398,6 +398,18 @@ textarea:focus-visible {
 .about-copy p,
 .footer-copy {
   color: var(--muted);
+}
+
+.submit-note {
+  width: fit-content;
+  margin-top: 1rem;
+  padding: 0.62rem 0.78rem;
+  border: 1px dashed rgba(244, 198, 90, 0.46);
+  border-radius: var(--radius-card);
+  background: rgba(255, 242, 199, 0.07);
+  color: var(--paper) !important;
+  font-size: 0.96rem;
+  font-weight: 900;
 }
 
 .case-form {
@@ -846,8 +858,7 @@ textarea:focus-visible {
 
   .header-cta {
     min-height: 40px;
-    max-width: 116px;
-    padding-inline: 0.9rem;
+    padding-inline: 1rem;
     font-size: 0.82rem;
     line-height: 1.05;
   }
