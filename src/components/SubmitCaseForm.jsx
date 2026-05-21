@@ -12,7 +12,7 @@ const CASE_TYPES = [
 
 const INITIAL_FORM = {
   caseIdea: "",
-  caseType: "",
+  caseType: "Which Was Worse?",
   sideA: "",
   sideB: "",
   whyRelatable: "",
@@ -34,7 +34,8 @@ function buildCloudflarePayload(form) {
     "Case type": form.caseType,
     "Side A": form.sideA.trim(),
     "Side B": form.sideB.trim(),
-    "Why relatable": form.whyRelatable.trim(),
+    "Why relatable":
+      form.whyRelatable.trim() || "Quick suggestion - no extra detail provided.",
     "Suggested joke or burn line": form.burnLine.trim(),
     "Credit permission": form.creditPermission,
     "TikTok handle": form.tiktokHandle.trim(),
@@ -49,6 +50,7 @@ export default function SubmitCaseForm({ draft }) {
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState("idle");
   const [message, setMessage] = useState("");
+  const [showOptionalDetails, setShowOptionalDetails] = useState(false);
   const whyRelatableRef = useRef(null);
 
   useEffect(() => {
@@ -63,6 +65,7 @@ export default function SubmitCaseForm({ draft }) {
     setErrors({});
     setStatus("idle");
     setMessage("");
+    setShowOptionalDetails(true);
 
     window.requestAnimationFrame(() => {
       document.getElementById("submit")?.scrollIntoView({
@@ -84,14 +87,6 @@ export default function SubmitCaseForm({ draft }) {
 
     if (!form.caseIdea.trim()) {
       nextErrors.caseIdea = "The court needs a case idea.";
-    }
-
-    if (!form.caseType) {
-      nextErrors.caseType = "Pick the legal category of this nonsense.";
-    }
-
-    if (!form.whyRelatable.trim()) {
-      nextErrors.whyRelatable = "Tell us why this belongs in emotional court.";
     }
 
     if (!validateEmail(form.email.trim())) {
@@ -144,6 +139,7 @@ export default function SubmitCaseForm({ draft }) {
 
       setForm(INITIAL_FORM);
       setErrors({});
+      setShowOptionalDetails(false);
       setStatus("success");
       setMessage(result.message || fallbackSuccessMessage);
     } catch (error) {
@@ -161,43 +157,46 @@ export default function SubmitCaseForm({ draft }) {
         <p className="section-stamp">Emotionally admissible</p>
         <h2>Submit Your Case</h2>
         <p>
-          What nostalgic trauma, wellness gimmick, or adult nonsense should go on
-          trial next?
+          Drop the case idea. Add details only if the evidence demands it.
         </p>
         <p className="submit-note">
-          Straight to the writing room. The comments will do the sentencing.
+          One field is enough. The comments will do the sentencing.
         </p>
       </div>
 
       <form className="case-form" onSubmit={handleSubmit} noValidate>
-        <div className="form-grid">
+        <div className="quick-submit-callout">
+          <span>Fast lane</span>
+          <strong>Idea first, overthinking later.</strong>
+        </div>
+
+        <div className="form-grid form-grid-quick">
           <Field
+            className="form-field-wide"
             error={errors.caseIdea}
             id="caseIdea"
-            label="Your case idea"
+            label="What should go on trial?"
             required
           >
-            <input
+            <textarea
               aria-describedby={errors.caseIdea ? "caseIdea-error" : undefined}
               aria-invalid={Boolean(errors.caseIdea)}
               id="caseIdea"
               name="caseIdea"
               onChange={updateField}
               placeholder="Example: Lip Gloss in Wind vs Wet Hair on the Bus"
+              rows="3"
               value={form.caseIdea}
             />
           </Field>
 
-          <Field error={errors.caseType} id="caseType" label="Case type" required>
+          <Field id="caseType" label="Case type">
             <select
-              aria-describedby={errors.caseType ? "caseType-error" : undefined}
-              aria-invalid={Boolean(errors.caseType)}
               id="caseType"
               name="caseType"
               onChange={updateField}
               value={form.caseType}
             >
-              <option value="">Pick your villain</option>
               {CASE_TYPES.map((type) => (
                 <option key={type} value={type}>
                   {type}
@@ -205,100 +204,113 @@ export default function SubmitCaseForm({ draft }) {
               ))}
             </select>
           </Field>
-
-          <Field id="sideA" label="Side A">
-            <input
-              id="sideA"
-              name="sideA"
-              onChange={updateField}
-              placeholder="Example: Jelly Shoes"
-              value={form.sideA}
-            />
-          </Field>
-
-          <Field id="sideB" label="Side B">
-            <input
-              id="sideB"
-              name="sideB"
-              onChange={updateField}
-              placeholder="Example: Designer Sandals"
-              value={form.sideB}
-            />
-          </Field>
-
-          <Field
-            className="form-field-wide"
-            error={errors.whyRelatable}
-            id="whyRelatable"
-            label="Why is this painfully relatable?"
-            required
-          >
-            <textarea
-              aria-describedby={errors.whyRelatable ? "whyRelatable-error" : undefined}
-              aria-invalid={Boolean(errors.whyRelatable)}
-              id="whyRelatable"
-              name="whyRelatable"
-              onChange={updateField}
-              placeholder="Tell us the memory, pain, smell, embarrassment, or trauma."
-              ref={whyRelatableRef}
-              rows="5"
-              value={form.whyRelatable}
-            />
-          </Field>
-
-          <Field className="form-field-wide" id="burnLine" label="Suggested joke or burn line">
-            <input
-              id="burnLine"
-              name="burnLine"
-              onChange={updateField}
-              placeholder="Optional: 'You're anxiety with a charger.'"
-              value={form.burnLine}
-            />
-          </Field>
-
-          <fieldset className="credit-field">
-            <legend>Can we credit you?</legend>
-            {["Yes, use my TikTok handle", "No, keep me anonymous"].map((option) => (
-              <label key={option} className="radio-option">
-                <input
-                  checked={form.creditPermission === option}
-                  name="creditPermission"
-                  onChange={updateField}
-                  type="radio"
-                  value={option}
-                />
-                <span>{option}</span>
-              </label>
-            ))}
-          </fieldset>
-
-          <Field id="tiktokHandle" label="TikTok handle">
-            <input
-              id="tiktokHandle"
-              name="tiktokHandle"
-              onChange={updateField}
-              placeholder="Optional: @yourhandle"
-              value={form.tiktokHandle}
-            />
-          </Field>
-
-          <Field error={errors.email} id="email" label="Email">
-            <input
-              aria-describedby={errors.email ? "email-error" : undefined}
-              aria-invalid={Boolean(errors.email)}
-              id="email"
-              inputMode="email"
-              name="email"
-              onChange={updateField}
-              placeholder="Optional"
-              type="email"
-              value={form.email}
-            />
-          </Field>
         </div>
 
+        <details
+          className="optional-case-details"
+          onToggle={(event) => setShowOptionalDetails(event.currentTarget.open)}
+          open={showOptionalDetails}
+        >
+          <summary>
+            <span>Add details, credit, or a joke line</span>
+            <small>Optional</small>
+          </summary>
+
+          <div className="form-grid optional-details-grid">
+            <Field id="sideA" label="Side A">
+              <input
+                id="sideA"
+                name="sideA"
+                onChange={updateField}
+                placeholder="Example: Jelly Shoes"
+                value={form.sideA}
+              />
+            </Field>
+
+            <Field id="sideB" label="Side B">
+              <input
+                id="sideB"
+                name="sideB"
+                onChange={updateField}
+                placeholder="Example: Designer Sandals"
+                value={form.sideB}
+              />
+            </Field>
+
+            <Field
+              className="form-field-wide"
+              id="whyRelatable"
+              label="Painfully specific detail"
+            >
+              <textarea
+                id="whyRelatable"
+                name="whyRelatable"
+                onChange={updateField}
+                placeholder="Optional: the memory, smell, embarrassment, or tiny emotional crime."
+                ref={whyRelatableRef}
+                rows="4"
+                value={form.whyRelatable}
+              />
+            </Field>
+
+            <Field
+              className="form-field-wide"
+              id="burnLine"
+              label="Suggested joke or burn line"
+            >
+              <input
+                id="burnLine"
+                name="burnLine"
+                onChange={updateField}
+                placeholder="Optional: 'You're anxiety with a charger.'"
+                value={form.burnLine}
+              />
+            </Field>
+
+            <fieldset className="credit-field">
+              <legend>Can we credit you?</legend>
+              {["Yes, use my TikTok handle", "No, keep me anonymous"].map((option) => (
+                <label key={option} className="radio-option">
+                  <input
+                    checked={form.creditPermission === option}
+                    name="creditPermission"
+                    onChange={updateField}
+                    type="radio"
+                    value={option}
+                  />
+                  <span>{option}</span>
+                </label>
+              ))}
+            </fieldset>
+
+            <Field id="tiktokHandle" label="TikTok handle">
+              <input
+                id="tiktokHandle"
+                name="tiktokHandle"
+                onChange={updateField}
+                placeholder="Optional: @yourhandle"
+                value={form.tiktokHandle}
+              />
+            </Field>
+
+            <Field error={errors.email} id="email" label="Email">
+              <input
+                aria-describedby={errors.email ? "email-error" : undefined}
+                aria-invalid={Boolean(errors.email)}
+                id="email"
+                inputMode="email"
+                name="email"
+                onChange={updateField}
+                placeholder="Optional"
+                type="email"
+                value={form.email}
+              />
+            </Field>
+          </div>
+        </details>
+
         <button className="button button-primary submit-button" disabled={isSubmitting} type="submit">
-          {isSubmitting ? "Entering Evidence..." : "Enter Into Evidence"}
+          {isSubmitting ? "Submitting..." : "Submit Suggestion"}
         </button>
 
         {message ? (
