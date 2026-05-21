@@ -4,7 +4,7 @@ export default function MobileCaseDock() {
   const [isHidden, setIsHidden] = useState(false);
 
   useEffect(() => {
-    const targets = Array.from(document.querySelectorAll(".case-form, .starter-grid"));
+    const targets = Array.from(document.querySelectorAll("#submit, .starter-grid"));
     const visibleTargets = new Set();
 
     if (!targets.length || !("IntersectionObserver" in window)) return undefined;

@@ -64,6 +64,17 @@ body::before {
   pointer-events: none;
 }
 
+body::after {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(116deg, transparent 0 38%, rgba(244, 198, 90, 0.045) 38% 39%, transparent 39%),
+    linear-gradient(64deg, transparent 0 68%, rgba(159, 109, 255, 0.05) 68% 69%, transparent 69%);
+  content: "";
+  pointer-events: none;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -103,6 +114,10 @@ textarea:focus-visible {
   margin-inline: auto;
 }
 
+main {
+  overflow: hidden;
+}
+
 .mobile-case-dock {
   display: none;
 }
@@ -118,6 +133,7 @@ textarea:focus-visible {
   padding: 0.85rem max(1rem, calc((100vw - 1120px) / 2));
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(12, 5, 8, 0.82);
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.24);
   backdrop-filter: blur(20px);
 }
 
@@ -196,6 +212,18 @@ textarea:focus-visible {
   padding: 3rem max(1rem, calc((100vw - 1120px) / 2)) 2rem;
 }
 
+.hero::before {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  height: 160px;
+  background: linear-gradient(180deg, transparent, rgba(18, 7, 11, 0.92));
+  content: "";
+  pointer-events: none;
+}
+
 .hero-visual {
   position: absolute;
   inset: 0;
@@ -241,6 +269,7 @@ textarea:focus-visible {
   max-width: 9ch;
   color: var(--text);
   font-size: 3.5rem;
+  text-wrap: balance;
   text-shadow: 0 8px 32px rgba(0, 0, 0, 0.44);
 }
 
@@ -293,12 +322,16 @@ textarea:focus-visible {
 .button-primary {
   background: linear-gradient(135deg, var(--pink), #ff78ce);
   color: #16070d;
-  box-shadow: 0 16px 34px rgba(255, 62, 165, 0.28);
+  box-shadow:
+    0 16px 34px rgba(255, 62, 165, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.38);
 }
 
 .button-secondary {
   border: 1px solid var(--line-strong);
-  background: rgba(255, 248, 234, 0.08);
+  background:
+    linear-gradient(180deg, rgba(255, 248, 234, 0.12), rgba(255, 248, 234, 0.04)),
+    rgba(255, 248, 234, 0.04);
   color: var(--text);
 }
 
@@ -317,7 +350,9 @@ textarea:focus-visible {
   padding: 0.8rem 0.9rem;
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: var(--radius-control);
-  background: rgba(12, 5, 8, 0.72);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
+    rgba(12, 5, 8, 0.72);
   color: var(--text);
   font-weight: 900;
   transition:
@@ -334,6 +369,7 @@ textarea:focus-visible {
 
 .quick-action-primary {
   border-color: rgba(255, 62, 165, 0.74);
+  box-shadow: inset 0 0 0 1px rgba(255, 62, 165, 0.16);
 }
 
 .quick-action-icon {
@@ -375,7 +411,23 @@ textarea:focus-visible {
 .which-section,
 .docket-section,
 .about-section {
+  position: relative;
+  isolation: isolate;
   padding-block: var(--section-space);
+}
+
+.submit-section::before,
+.writing-room-section::before {
+  position: absolute;
+  inset: 0 50%;
+  z-index: -1;
+  width: 100vw;
+  background:
+    linear-gradient(180deg, rgba(9, 5, 8, 0.1), rgba(255, 62, 165, 0.045), rgba(9, 5, 8, 0.1)),
+    linear-gradient(90deg, transparent, rgba(244, 198, 90, 0.06), transparent);
+  content: "";
+  pointer-events: none;
+  transform: translateX(-50%);
 }
 
 .writing-room-section {
@@ -414,6 +466,7 @@ textarea:focus-visible {
 .about-copy h2 {
   color: var(--paper);
   font-size: 2.35rem;
+  text-wrap: balance;
 }
 
 .section-heading p,
@@ -446,7 +499,9 @@ textarea:focus-visible {
   padding: 0.78rem 0.9rem;
   border: 1px dashed rgba(244, 198, 90, 0.42);
   border-radius: var(--radius-card);
-  background: rgba(255, 242, 199, 0.08);
+  background:
+    linear-gradient(180deg, rgba(255, 242, 199, 0.12), rgba(255, 242, 199, 0.05)),
+    rgba(255, 242, 199, 0.08);
   color: var(--paper);
   font-weight: 950;
 }
@@ -457,6 +512,7 @@ textarea:focus-visible {
 }
 
 .starter-card {
+  position: relative;
   display: grid;
   min-height: 178px;
   gap: 0.6rem;
@@ -464,16 +520,42 @@ textarea:focus-visible {
   padding: 1rem;
   border: 1px solid rgba(244, 198, 90, 0.36);
   border-radius: var(--radius-card);
+  overflow: hidden;
   background:
-    linear-gradient(135deg, rgba(255, 62, 165, 0.12), transparent 52%),
-    rgba(17, 6, 10, 0.8);
+    linear-gradient(145deg, rgba(255, 62, 165, 0.18), transparent 48%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.015)),
+    rgba(17, 6, 10, 0.86);
   color: var(--text);
   cursor: pointer;
+  box-shadow:
+    0 18px 46px rgba(0, 0, 0, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
   text-align: left;
   transition:
     transform 180ms ease,
     border-color 180ms ease,
     box-shadow 180ms ease;
+}
+
+.starter-card::before,
+.case-card::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--teal), var(--pink), var(--gold));
+  content: "";
+}
+
+.starter-card::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-color: rgba(244, 198, 90, 0.72) rgba(244, 198, 90, 0.72) transparent transparent;
+  border-style: solid;
+  border-width: 0 18px 18px 0;
+  content: "";
 }
 
 .starter-card:hover,
@@ -520,7 +602,9 @@ textarea:focus-visible {
   padding: 0.62rem 0.78rem;
   border: 1px dashed rgba(244, 198, 90, 0.46);
   border-radius: var(--radius-card);
-  background: rgba(255, 242, 199, 0.07);
+  background:
+    linear-gradient(180deg, rgba(255, 242, 199, 0.12), rgba(255, 242, 199, 0.05)),
+    rgba(255, 242, 199, 0.07);
   color: var(--paper) !important;
   font-size: 0.96rem;
   font-weight: 900;
@@ -532,10 +616,13 @@ textarea:focus-visible {
   border: 1px solid rgba(244, 198, 90, 0.48);
   border-radius: var(--radius-card);
   background:
-    linear-gradient(180deg, rgba(255, 242, 199, 0.96), rgba(244, 221, 165, 0.94)),
-    var(--paper);
+    linear-gradient(90deg, rgba(255, 62, 165, 0.16) 0 6px, transparent 6px),
+    repeating-linear-gradient(0deg, transparent 0 46px, rgba(55, 16, 30, 0.08) 47px 48px),
+    linear-gradient(180deg, #fff4cc, #f4dda5);
   color: var(--ink);
-  box-shadow: var(--shadow);
+  box-shadow:
+    var(--shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.72);
 }
 
 .case-form::before {
@@ -564,7 +651,9 @@ textarea:focus-visible {
   padding: 0.78rem 0.9rem;
   border: 2px dashed rgba(186, 23, 109, 0.36);
   border-radius: var(--radius-card);
-  background: rgba(255, 62, 165, 0.08);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.26), rgba(255, 255, 255, 0.08)),
+    rgba(255, 62, 165, 0.08);
 }
 
 .quick-submit-callout span {
@@ -599,7 +688,7 @@ textarea:focus-visible {
   padding: 0.88rem 0.9rem;
   border: 2px solid rgba(55, 16, 30, 0.26);
   border-radius: var(--radius-card);
-  background: rgba(255, 255, 255, 0.74);
+  background: rgba(255, 252, 246, 0.88);
   color: var(--ink);
   font-size: 1rem;
   transition:
@@ -643,7 +732,9 @@ textarea:focus-visible {
   margin-top: 1rem;
   border: 2px solid rgba(55, 16, 30, 0.18);
   border-radius: var(--radius-card);
-  background: rgba(255, 255, 255, 0.28);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.16)),
+    rgba(255, 255, 255, 0.28);
 }
 
 .optional-case-details summary {
@@ -754,10 +845,14 @@ textarea:focus-visible {
   padding: 1rem;
   border: 1px solid rgba(244, 198, 90, 0.36);
   border-radius: var(--radius-card);
+  overflow: hidden;
   background:
-    linear-gradient(180deg, rgba(255, 248, 234, 0.1), rgba(255, 248, 234, 0.04)),
-    rgba(17, 6, 10, 0.78);
-  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.2);
+    linear-gradient(145deg, rgba(255, 62, 165, 0.11), transparent 44%),
+    linear-gradient(180deg, rgba(255, 248, 234, 0.12), rgba(255, 248, 234, 0.04)),
+    rgba(17, 6, 10, 0.84);
+  box-shadow:
+    0 18px 44px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
 }
 
 .case-card::after {
@@ -1129,6 +1224,7 @@ textarea:focus-visible {
     padding: 0 0.7rem 0.25rem;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
+    mask-image: linear-gradient(90deg, #000 0 calc(100% - 28px), transparent 100%);
   }
 
   .quick-actions::-webkit-scrollbar,
@@ -1158,6 +1254,7 @@ textarea:focus-visible {
     margin: 1rem -0.7rem 0;
     overflow-x: auto;
     padding: 0 0.7rem 0.15rem;
+    mask-image: linear-gradient(90deg, #000 0 calc(100% - 24px), transparent 100%);
   }
 
   .hero-evidence-strip span {
@@ -1260,6 +1357,7 @@ textarea:focus-visible {
     padding: 0 0.7rem 0.45rem;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
+    mask-image: linear-gradient(90deg, #000 0 calc(100% - 34px), transparent 100%);
   }
 
   .starter-card {
@@ -1285,6 +1383,8 @@ textarea:focus-visible {
     z-index: 50;
     display: grid;
     grid-template-columns: 1fr auto;
+    max-width: 430px;
+    margin-inline: auto;
     gap: 0.6rem;
     align-items: center;
     padding: 0.55rem;
