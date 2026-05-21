@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Header from "./components/Header.jsx";
 import Hero from "./components/Hero.jsx";
+import MobileCaseDock from "./components/MobileCaseDock.jsx";
 import WritingRoom from "./components/WritingRoom.jsx";
 import SubmitCaseForm from "./components/SubmitCaseForm.jsx";
 import WhichWasWorse from "./components/WhichWasWorse.jsx";
@@ -31,12 +32,13 @@ export default function App() {
       <Header />
       <main>
         <Hero />
-        <WritingRoom cases={cases.fanStarters} onChooseStarter={handleChooseStarter} />
         <SubmitCaseForm draft={caseDraft} />
+        <WritingRoom cases={cases.fanStarters} onChooseStarter={handleChooseStarter} />
         <WhichWasWorse cases={cases.whichWasWorse} onChooseStarter={handleChooseStarter} />
         <Docket cases={cases.docket} />
         <About />
       </main>
+      <MobileCaseDock />
       <Footer />
     </>
   );
