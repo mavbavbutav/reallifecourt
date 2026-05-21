@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CASE_FORM_ENDPOINT } from "../../config/siteConfig.js";
 
 const CASE_TYPES = [
@@ -44,11 +44,34 @@ function buildCloudflarePayload(form) {
   };
 }
 
-export default function SubmitCaseForm() {
+export default function SubmitCaseForm({ draft }) {
   const [form, setForm] = useState(INITIAL_FORM);
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState("idle");
   const [message, setMessage] = useState("");
+  const whyRelatableRef = useRef(null);
+
+  useEffect(() => {
+    if (!draft) return;
+
+    const { draftId, ...draftFields } = draft;
+
+    setForm((current) => ({
+      ...current,
+      ...draftFields,
+    }));
+    setErrors({});
+    setStatus("idle");
+    setMessage("");
+
+    window.requestAnimationFrame(() => {
+      document.getElementById("submit")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+      window.setTimeout(() => whyRelatableRef.current?.focus(), 350);
+    });
+  }, [draft]);
 
   function updateField(event) {
     const { name, value } = event.target;
@@ -217,6 +240,7 @@ export default function SubmitCaseForm() {
               name="whyRelatable"
               onChange={updateField}
               placeholder="Tell us the memory, pain, smell, embarrassment, or trauma."
+              ref={whyRelatableRef}
               rows="5"
               value={form.whyRelatable}
             />

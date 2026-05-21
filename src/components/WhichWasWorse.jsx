@@ -1,6 +1,6 @@
 import CaseCard from "./CaseCard.jsx";
 
-export default function WhichWasWorse({ cases }) {
+export default function WhichWasWorse({ cases, onChooseStarter }) {
   return (
     <section className="section-shell which-section" id="which-was-worse">
       <div className="section-heading">
@@ -16,6 +16,7 @@ export default function WhichWasWorse({ cases }) {
             ctaLabel="Submit a Worse One"
             href="#submit"
             key={caseItem.title}
+            onChooseCase={onChooseStarter}
             variant="which"
           />
         ))}

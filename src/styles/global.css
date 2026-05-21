@@ -221,6 +221,7 @@ textarea:focus-visible {
 
 .hero h1,
 .section-heading h2,
+.writing-room-copy h2,
 .about-copy h2 {
   margin: 0;
   font-family: "Arial Black", Impact, "Trebuchet MS", sans-serif;
@@ -354,11 +355,16 @@ textarea:focus-visible {
   text-transform: uppercase;
 }
 
+.writing-room-section,
 .submit-section,
 .which-section,
 .docket-section,
 .about-section {
   padding-block: var(--section-space);
+}
+
+.writing-room-section {
+  padding-bottom: 1.5rem;
 }
 
 .section-heading {
@@ -389,15 +395,108 @@ textarea:focus-visible {
 }
 
 .section-heading h2,
+.writing-room-copy h2,
 .about-copy h2 {
   color: var(--paper);
   font-size: 2.35rem;
 }
 
 .section-heading p,
+.writing-room-copy p,
 .about-copy p,
 .footer-copy {
   color: var(--muted);
+}
+
+.writing-room-copy {
+  max-width: 780px;
+}
+
+.writing-room-copy p {
+  max-width: 690px;
+  margin: 0.9rem 0 0;
+  font-size: 1.04rem;
+}
+
+.writing-room-brief {
+  display: grid;
+  gap: 0.65rem;
+  margin: 1.25rem 0;
+}
+
+.writing-room-brief span {
+  display: flex;
+  min-height: 46px;
+  align-items: center;
+  padding: 0.78rem 0.9rem;
+  border: 1px dashed rgba(244, 198, 90, 0.42);
+  border-radius: var(--radius-card);
+  background: rgba(255, 242, 199, 0.08);
+  color: var(--paper);
+  font-weight: 950;
+}
+
+.starter-grid {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.starter-card {
+  display: grid;
+  min-height: 178px;
+  gap: 0.6rem;
+  align-content: start;
+  padding: 1rem;
+  border: 1px solid rgba(244, 198, 90, 0.36);
+  border-radius: var(--radius-card);
+  background:
+    linear-gradient(135deg, rgba(255, 62, 165, 0.12), transparent 52%),
+    rgba(17, 6, 10, 0.8);
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.starter-card:hover,
+.starter-card:focus-visible {
+  border-color: rgba(56, 221, 207, 0.7);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.26);
+  transform: translateY(-2px);
+}
+
+.starter-card strong {
+  color: var(--paper);
+  font-size: 1.12rem;
+  line-height: 1.15;
+}
+
+.starter-card span:not(.starter-category) {
+  color: var(--muted);
+}
+
+.starter-card small {
+  display: inline-flex;
+  width: fit-content;
+  min-height: 32px;
+  align-items: center;
+  margin-top: auto;
+  padding: 0.4rem 0.62rem;
+  border-radius: 999px;
+  background: var(--teal);
+  color: #071615;
+  font-size: 0.78rem;
+  font-weight: 950;
+}
+
+.starter-category {
+  color: var(--teal);
+  font-size: 0.76rem;
+  font-weight: 950;
+  text-transform: uppercase;
 }
 
 .submit-note {
@@ -617,6 +716,11 @@ textarea:focus-visible {
   transition: transform 180ms ease;
 }
 
+.case-card-button {
+  border: 0;
+  cursor: pointer;
+}
+
 .docket-list {
   display: grid;
   gap: 0.85rem;
@@ -757,6 +861,11 @@ textarea:focus-visible {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .starter-grid,
+  .writing-room-brief {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .form-field-wide,
   .credit-field {
     grid-column: 1 / -1;
@@ -798,6 +907,7 @@ textarea:focus-visible {
   }
 
   .section-heading h2,
+  .writing-room-copy h2,
   .about-copy h2 {
     font-size: 3.15rem;
   }
@@ -812,6 +922,14 @@ textarea:focus-visible {
   }
 
   .card-grid-tight {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .starter-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .writing-room-brief {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
@@ -877,6 +995,7 @@ textarea:focus-visible {
   }
 
   .section-heading h2,
+  .writing-room-copy h2,
   .about-copy h2 {
     font-size: 2.12rem;
   }

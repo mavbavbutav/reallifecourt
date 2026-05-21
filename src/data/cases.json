@@ -1,4 +1,48 @@
 {
+  "fanStarters": [
+    {
+      "title": "Lip Gloss in Wind vs Wet Hair on the Bus",
+      "category": "Which Was Worse?",
+      "sideA": "Lip Gloss in Wind",
+      "sideB": "Wet Hair on the Bus",
+      "prompt": "For the people who still remember hair sticking to vanilla gloss during recess."
+    },
+    {
+      "title": "Pencil Sharpener Walk vs Reading Aloud in Class",
+      "category": "Middle School Trauma",
+      "sideA": "Pencil Sharpener Walk",
+      "sideB": "Reading Aloud in Class",
+      "prompt": "One was a public runway. The other was a paragraph with names."
+    },
+    {
+      "title": "Butterfly Clips vs Slick-Back Hair Oil",
+      "category": "Nostalgia vs Modern",
+      "sideA": "Butterfly Clips",
+      "sideB": "Slick-Back Hair Oil",
+      "prompt": "Crunchy plastic optimism meets adult hair that cannot move."
+    },
+    {
+      "title": "Claire's Piercing Gun vs Dermatologist",
+      "category": "Beauty/Fashion Crime",
+      "sideA": "Claire's Piercing Gun",
+      "sideB": "Dermatologist",
+      "prompt": "A mall chair, a nervous aunt, and a healing process with no consent."
+    },
+    {
+      "title": "Detox Tea vs Liver",
+      "category": "Wellness Gimmick vs Common Sense",
+      "sideA": "Detox Tea",
+      "sideB": "Liver",
+      "prompt": "The comments may have to explain basic biology with attitude."
+    },
+    {
+      "title": "Tamagotchi vs Self-Care App",
+      "category": "Nostalgia vs Modern",
+      "sideA": "Tamagotchi",
+      "sideB": "Self-Care App",
+      "prompt": "Both demanded attention. One beeped. One sends push notifications."
+    }
+  ],
   "whichWasWorse": [
     {
       "title": "Cafeteria Seat Rejection vs Left on Read",

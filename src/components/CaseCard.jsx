@@ -5,7 +5,13 @@ const statusClass = {
   "Case Dismissed": "status-dismissed",
 };
 
-export default function CaseCard({ caseItem, ctaLabel, href, variant = "default" }) {
+export default function CaseCard({
+  caseItem,
+  ctaLabel,
+  href,
+  onChooseCase,
+  variant = "default",
+}) {
   return (
     <article className={`case-card case-card-${variant}`}>
       <div className="case-card-topline">
@@ -21,7 +27,17 @@ export default function CaseCard({ caseItem, ctaLabel, href, variant = "default"
 
       {caseItem.prompt ? <p>{caseItem.prompt}</p> : null}
 
-      {ctaLabel ? (
+      {ctaLabel && onChooseCase ? (
+        <button
+          className="case-card-link case-card-button"
+          onClick={() => onChooseCase(caseItem)}
+          type="button"
+        >
+          {ctaLabel}
+        </button>
+      ) : null}
+
+      {ctaLabel && !onChooseCase ? (
         <a className="case-card-link" href={href}>
           {ctaLabel}
         </a>
