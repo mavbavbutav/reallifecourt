@@ -2,18 +2,18 @@ export default function WritingRoom({ cases, onChooseStarter }) {
   return (
     <section className="writing-room-section section-shell" id="writing-room">
       <div className="writing-room-copy">
-        <p className="section-stamp">Fan writing room</p>
-        <h2>Remix a case before the bell rings.</h2>
+        <p className="section-stamp">Need a starter?</p>
+        <h2>Tap one if your brain went blank.</h2>
         <p>
-          Tap a starter, add the weird little detail that makes everyone comment
-          "wait, why do I remember this?", and send it straight to court.
+          Starter cases drop straight into the idea box. Change the details,
+          keep the pain, and submit it.
         </p>
       </div>
 
       <div className="writing-room-brief" aria-label="Case submission cues">
-        <span>The detail is the joke.</span>
-        <span>Pick the villain.</span>
-        <span>Middle school remembers.</span>
+        <span>One sentence is enough.</span>
+        <span>Specific beats perfect.</span>
+        <span>The weird detail wins.</span>
       </div>
 
       <div className="starter-grid" aria-label="Fan case starters">
@@ -27,7 +27,7 @@ export default function WritingRoom({ cases, onChooseStarter }) {
             <span className="starter-category">{caseItem.category}</span>
             <strong>{caseItem.title}</strong>
             <span>{caseItem.prompt}</span>
-            <small>Remix this case</small>
+            <small>Use this idea</small>
           </button>
         ))}
       </div>

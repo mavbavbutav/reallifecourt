@@ -1,8 +1,7 @@
 import { siteConfig } from "../../config/siteConfig.js";
 
 const navItems = [
-  { label: "Submit", href: "#submit" },
-  { label: "Which Was Worse?", href: "#which-was-worse" },
+  { label: "Starter Pack", href: "#writing-room" },
   { label: "Docket", href: "#docket" },
   { label: "About", href: "#about" },
 ];
@@ -10,7 +9,7 @@ const navItems = [
 export default function Header() {
   return (
     <header className="site-header">
-      <a className="brand-lockup" href="#home" aria-label="Real Life Court home">
+      <a className="brand-lockup" href="#submit" aria-label="Real Life Court home">
         <span className="brand-mark" aria-hidden="true">
           RLC
         </span>
@@ -28,8 +27,8 @@ export default function Header() {
         ))}
       </nav>
 
-      <a className="header-cta" href="#submit" aria-label="Submit a Case">
-        Submit
+      <a className="header-cta" href="#submit" aria-label="Submit an Idea">
+        Submit Idea
       </a>
     </header>
   );

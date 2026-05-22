@@ -59,7 +59,7 @@ export default function SubmitCaseForm({ draft }) {
     const nextErrors = {};
 
     if (!form.caseIdea.trim()) {
-      nextErrors.caseIdea = "Type the idea first. Court cannot read minds yet.";
+      nextErrors.caseIdea = "Type the idea first. One sentence is enough.";
     }
 
     setErrors(nextErrors);
@@ -72,13 +72,13 @@ export default function SubmitCaseForm({ draft }) {
 
     if (!validateForm()) {
       setStatus("error");
-      setMessage("A few exhibits need cleanup before they can be admitted.");
+      setMessage("Type one idea first. The court accepts chaos, not blanks.");
       return;
     }
 
     const payload = buildCloudflarePayload(form);
     const successMessage =
-      "Your idea is in the same-day docket. Selected cases can hit TikTok today. ⚖️";
+      "Your idea is in the same-day docket. If selected, it can hit TikTok today. \u2696\uFE0F";
 
     setStatus("submitting");
 
@@ -124,26 +124,32 @@ export default function SubmitCaseForm({ draft }) {
       <div className="section-heading">
         <p className="section-stamp">Court is in session</p>
         <h1>Real Life Court</h1>
-        <h2>Submit an idea</h2>
+        <h2>Drop the idea. That's it.</h2>
         <p>
-          Type the nostalgic trauma, wellness gimmick, or modern nonsense that
-          should go on trial next.
+          Type the middle-school memory, wellness gimmick, or modern nonsense.
+          We'll figure out the case angle.
         </p>
         <p className="submit-note">
-          No categories. No homework. Same-day TikTok posting for selected ideas.
+          Selected ideas can be posted on TikTok the same day.
         </p>
       </div>
 
       <form className="case-form" onSubmit={handleSubmit} noValidate>
-        <Field error={errors.caseIdea} id="caseIdea" label="Your idea" required>
+        <Field
+          error={errors.caseIdea}
+          hint="One messy sentence is perfect."
+          id="caseIdea"
+          label="Your idea"
+          required
+        >
           <textarea
-            aria-describedby={errors.caseIdea ? "caseIdea-error" : undefined}
+            aria-describedby={errors.caseIdea ? "caseIdea-error" : "caseIdea-hint"}
             aria-invalid={Boolean(errors.caseIdea)}
-            autoFocus
             id="caseIdea"
             name="caseIdea"
             onChange={updateField}
-            placeholder="Example: Lip Gloss in Wind vs Wet Hair on the Bus"
+            placeholder={`Example: Lip Gloss in Wind vs Wet Hair on the Bus
+Or: Pencil Sharpener Walk vs Reading Aloud`}
             ref={caseIdeaRef}
             rows="7"
             value={form.caseIdea}
@@ -167,7 +173,15 @@ export default function SubmitCaseForm({ draft }) {
   );
 }
 
-function Field({ children, className = "", error, id, label, required = false }) {
+function Field({
+  children,
+  className = "",
+  error,
+  hint,
+  id,
+  label,
+  required = false,
+}) {
   return (
     <div className={`form-field ${className}`}>
       <label htmlFor={id}>
@@ -175,6 +189,11 @@ function Field({ children, className = "", error, id, label, required = false })
         {required ? <span aria-hidden="true"> *</span> : null}
       </label>
       {children}
+      {hint && !error ? (
+        <p className="field-hint" id={`${id}-hint`}>
+          {hint}
+        </p>
+      ) : null}
       {error ? (
         <p className="field-error" id={`${id}-error`}>
           {error}

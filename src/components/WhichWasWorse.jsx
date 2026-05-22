@@ -13,7 +13,7 @@ export default function WhichWasWorse({ cases, onChooseStarter }) {
         {cases.map((caseItem) => (
           <CaseCard
             caseItem={caseItem}
-            ctaLabel="Submit a Worse One"
+            ctaLabel="Use this idea"
             href="#submit"
             key={caseItem.title}
             onChooseCase={onChooseStarter}
