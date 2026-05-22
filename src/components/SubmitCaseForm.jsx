@@ -3,9 +3,20 @@ import { CASE_FORM_ENDPOINT, siteConfig } from "../../config/siteConfig.js";
 
 const INITIAL_FORM = {
   caseIdea: "",
+  tiktokHandle: "",
 };
 
+const TIKTOK_HANDLE_PATTERN = /^@?[A-Za-z0-9._]{2,24}$/;
+
+function normalizeTikTokHandle(value) {
+  const trimmed = value.trim();
+  if (!trimmed) return "";
+  return trimmed.startsWith("@") ? trimmed : `@${trimmed}`;
+}
+
 function buildCloudflarePayload(form) {
+  const tiktokHandle = normalizeTikTokHandle(form.tiktokHandle);
+
   return {
     "Form type": "Real Life Court Case",
     "Your case idea": form.caseIdea.trim(),
@@ -14,8 +25,10 @@ function buildCloudflarePayload(form) {
     "Side B": "",
     "Why relatable": form.caseIdea.trim(),
     "Suggested joke or burn line": "",
-    "Credit permission": "Not requested",
-    "TikTok handle": "",
+    "Credit permission": tiktokHandle
+      ? "Yes, use my TikTok handle"
+      : "Anonymous / no handle provided",
+    "TikTok handle": tiktokHandle,
     Email: "",
     Source: "real-life-court-link-in-bio",
     "Submitted at": new Date().toISOString(),
@@ -68,7 +81,10 @@ export default function SubmitCaseForm({ draft, quickStarters = [] }) {
   }
 
   function handleSubmitAnother() {
-    setForm(INITIAL_FORM);
+    setForm((current) => ({
+      ...INITIAL_FORM,
+      tiktokHandle: current.tiktokHandle,
+    }));
     setErrors({});
     setStatus("idle");
     setMessage("");
@@ -80,6 +96,10 @@ export default function SubmitCaseForm({ draft, quickStarters = [] }) {
 
     if (!form.caseIdea.trim()) {
       nextErrors.caseIdea = "Type the idea first. One sentence is enough.";
+    }
+
+    if (form.tiktokHandle.trim() && !TIKTOK_HANDLE_PATTERN.test(form.tiktokHandle.trim())) {
+      nextErrors.tiktokHandle = "Use a handle like @realifecourt.";
     }
 
     setErrors(nextErrors);
@@ -97,8 +117,10 @@ export default function SubmitCaseForm({ draft, quickStarters = [] }) {
     }
 
     const payload = buildCloudflarePayload(form);
-    const successMessage =
-      "Your idea is in the same-day docket. If selected, it can hit TikTok today. \u2696\uFE0F";
+    const tiktokHandle = normalizeTikTokHandle(form.tiktokHandle);
+    const successMessage = tiktokHandle
+      ? `Your idea is in the same-day docket. If selected, we'll credit ${tiktokHandle} and it can hit TikTok today. \u2696\uFE0F`
+      : "Your idea is in the same-day docket. If selected, it can hit TikTok today. \u2696\uFE0F";
 
     setStatus("submitting");
 
@@ -126,7 +148,10 @@ export default function SubmitCaseForm({ draft, quickStarters = [] }) {
         console.info("Real Life Court demo submission", payload);
       }
 
-      setForm(INITIAL_FORM);
+      setForm({
+        ...INITIAL_FORM,
+        tiktokHandle: form.tiktokHandle,
+      });
       setErrors({});
       setStatus("success");
       setMessage(successMessage);
@@ -147,7 +172,7 @@ export default function SubmitCaseForm({ draft, quickStarters = [] }) {
         <h2>Drop the idea. That's it.</h2>
         <p>
           No login. No categories. Type the memory, gimmick, or modern
-          nonsense and we'll find the case angle.
+          nonsense and add your @ if you want credit.
         </p>
         <p className="submit-note">
           Selected ideas can hit TikTok the same day.
@@ -192,6 +217,36 @@ Or: Body glitter vs highlighter drops`}
                 </button>
               ))}
             </div>
+          </div>
+        ) : null}
+
+        {status !== "success" ? (
+          <div className="credit-handle-field">
+            <div>
+              <label htmlFor="tiktokHandle">Want credit?</label>
+              <p
+                className={errors.tiktokHandle ? "credit-handle-error" : ""}
+                id={errors.tiktokHandle ? "tiktokHandle-error" : "tiktokHandle-hint"}
+              >
+                {errors.tiktokHandle || "Optional TikTok @. Leave blank to stay anonymous."}
+              </p>
+            </div>
+            <input
+              aria-describedby={errors.tiktokHandle ? "tiktokHandle-error" : "tiktokHandle-hint"}
+              aria-invalid={Boolean(errors.tiktokHandle)}
+              autoCapitalize="none"
+              autoComplete="off"
+              autoCorrect="off"
+              id="tiktokHandle"
+              inputMode="text"
+              maxLength="25"
+              name="tiktokHandle"
+              onChange={updateField}
+              placeholder="@yourhandle"
+              spellCheck="false"
+              type="text"
+              value={form.tiktokHandle}
+            />
           </div>
         ) : null}
 
