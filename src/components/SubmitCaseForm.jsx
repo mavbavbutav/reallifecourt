@@ -148,8 +148,8 @@ export default function SubmitCaseForm({ draft }) {
             id="caseIdea"
             name="caseIdea"
             onChange={updateField}
-            placeholder={`Example: Lip Gloss in Wind vs Wet Hair on the Bus
-Or: Pencil Sharpener Walk vs Reading Aloud`}
+            placeholder={`Example: Locker Combination Panic vs Password Reset Loop
+Or: Roll-On Body Glitter vs Highlighter Drops`}
             ref={caseIdeaRef}
             rows="7"
             value={form.caseIdea}

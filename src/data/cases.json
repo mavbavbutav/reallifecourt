@@ -1,88 +1,88 @@
 {
   "fanStarters": [
     {
-      "title": "Lip Gloss in Wind vs Wet Hair on the Bus",
+      "title": "Locker Combination Panic vs Password Reset Loop",
       "category": "Which Was Worse?",
-      "sideA": "Lip Gloss in Wind",
-      "sideB": "Wet Hair on the Bus",
-      "prompt": "For the people who still remember hair sticking to vanilla gloss during recess."
+      "sideA": "Locker Combination Panic",
+      "sideB": "Password Reset Loop",
+      "prompt": "Both had you sweating in public while a line formed behind you."
     },
     {
-      "title": "Pencil Sharpener Walk vs Reading Aloud in Class",
-      "category": "Middle School Trauma",
-      "sideA": "Pencil Sharpener Walk",
-      "sideB": "Reading Aloud in Class",
-      "prompt": "One was a public runway. The other was a paragraph with names."
-    },
-    {
-      "title": "Butterfly Clips vs Slick-Back Hair Oil",
-      "category": "Nostalgia vs Modern",
-      "sideA": "Butterfly Clips",
-      "sideB": "Slick-Back Hair Oil",
-      "prompt": "Crunchy plastic optimism meets adult hair that cannot move."
-    },
-    {
-      "title": "Claire's Piercing Gun vs Dermatologist",
+      "title": "Roll-On Body Glitter vs Highlighter Drops",
       "category": "Beauty/Fashion Crime",
-      "sideA": "Claire's Piercing Gun",
-      "sideB": "Dermatologist",
-      "prompt": "A mall chair, a nervous aunt, and a healing process with no consent."
+      "sideA": "Roll-On Body Glitter",
+      "sideB": "Highlighter Drops",
+      "prompt": "One stuck to your Limited Too shirt. One stuck to your bank statement."
     },
     {
-      "title": "Detox Tea vs Liver",
-      "category": "Wellness Gimmick vs Common Sense",
-      "sideA": "Detox Tea",
-      "sideB": "Liver",
-      "prompt": "The comments may have to explain basic biology with attitude."
+      "title": "Forgotten Gym Clothes vs Camera-On Meeting",
+      "category": "Middle School Trauma",
+      "sideA": "Forgotten Gym Clothes",
+      "sideB": "Camera-On Meeting",
+      "prompt": "Different decades, same immediate need to vanish."
     },
     {
-      "title": "Tamagotchi vs Self-Care App",
+      "title": "Sun-In Hair Spray vs Glossing Treatment",
       "category": "Nostalgia vs Modern",
-      "sideA": "Tamagotchi",
-      "sideB": "Self-Care App",
-      "prompt": "Both demanded attention. One beeped. One sends push notifications."
+      "sideA": "Sun-In Hair Spray",
+      "sideB": "Glossing Treatment",
+      "prompt": "Kitchen chemistry meets a salon invoice with emotional damages."
+    },
+    {
+      "title": "Cortisol Mocktail vs Sitting Down",
+      "category": "Wellness Gimmick vs Common Sense",
+      "sideA": "Cortisol Mocktail",
+      "sideB": "Sitting Down",
+      "prompt": "One has a recipe card. One has a chair and boundaries."
+    },
+    {
+      "title": "Magazine Quiz vs Therapy TikTok",
+      "category": "Nostalgia vs Modern",
+      "sideA": "Magazine Quiz",
+      "sideB": "Therapy TikTok",
+      "prompt": "Both diagnosed your crush behavior with alarming confidence."
     }
   ],
   "whichWasWorse": [
     {
-      "title": "Cafeteria Seat Rejection vs Left on Read",
+      "title": "Locker Combination Panic vs Password Reset Loop",
       "category": "Which Was Worse?",
-      "prompt": "Which was worse: getting rejected with fries in your hand or being left on read?"
+      "prompt": "Which was worse: forgetting the combo with people watching or resetting a password for the fifth time?"
     },
     {
-      "title": "Pencil Sharpener Walk vs Reading Aloud in Class",
+      "title": "Forgotten Gym Clothes vs Camera-On Meeting",
       "category": "Which Was Worse?",
-      "prompt": "Which was worse: the loudest walk of your academic career or discovering a paragraph has names?"
+      "prompt": "Which was worse: borrowing mystery shorts or realizing your face is already on-screen?"
     },
     {
-      "title": "Lip Gloss in Wind vs Wet Hair on the Bus",
+      "title": "Group Project Poster Board vs Shared Doc Chaos",
       "category": "Which Was Worse?",
-      "prompt": "Which was worse: hair glued to your mouth or cold drip marks on a vinyl seat?"
+      "prompt": "Which was worse: one person buying glitter letters or five people typing over each other?"
     },
     {
-      "title": "Braces Rubber Bands vs Retainer Case",
+      "title": "Agenda Book Signature vs Read Receipt",
       "category": "Which Was Worse?",
-      "prompt": "Which was worse: snapping a tiny band mid-sentence or losing the case during lunch?"
+      "prompt": "Which was worse: forging a parent initial or watching someone ignore proof of delivery?"
     },
     {
-      "title": "School Picture Day vs Slow Dance",
+      "title": "Book Fair Budget vs Sephora Basket",
       "category": "Which Was Worse?",
-      "prompt": "Which was worse: one printed mistake forever or three minutes of arms-length panic?"
+      "prompt": "Which was worse: choosing one pencil eraser or removing one lip oil to afford rent?"
     },
     {
-      "title": "Jelly Shoes vs Wet Jeans Cuff",
+      "title": "Calling Your Friend's House vs Sending the First Text",
       "category": "Which Was Worse?",
-      "prompt": "Which was worse: glitter blisters or denim dragging bathroom floor evidence?"
+      "prompt": "Which was worse: asking their dad if they were home or typing hey and regretting it instantly?"
     },
     {
-      "title": "Passing Notes vs Screenshot Receipts",
+      "title": "Period Leak Check vs White Pants Day",
       "category": "Which Was Worse?",
-      "prompt": "Which was worse: folded paper betrayal or a digital exhibit with timestamps?"
+      "prompt": "Which was worse: asking a friend to inspect the back or trusting white denim after lunch?"
     },
     {
-      "title": "AIM Away Message vs MySpace Top 8",
+      "title": "Bus Seat Saving vs Rideshare Small Talk",
       "category": "Which Was Worse?",
-      "prompt": "Which was worse: vague lyrics aimed at one person or public ranking with consequences?"
+      "prompt": "Which was worse: pretending a seat was taken or being trapped in weather conversation?"
     }
   ],
   "docket": [
@@ -119,16 +119,16 @@
   ],
   "seededIdeas": {
     "nostalgiaVsModern": [
-      "Body Splash vs Luxury Body Oil",
       "BonBons Nail Polish vs Gel Manicure",
-      "Butterfly Clips vs Slick-Back Hair Oil",
       "Lisa Frank vs Minimal Planner",
-      "Slap Bracelet vs Apple Watch",
-      "Tamagotchi vs Self-Care App",
-      "Cootie Catcher vs Astrology App",
       "Troll Doll vs Labubu",
       "Orbitz vs Kombucha",
-      "Strawberry Shortcake vs Luxury Perfume"
+      "Strawberry Shortcake vs Luxury Perfume",
+      "Roll-On Body Glitter vs Highlighter Drops",
+      "Sun-In Hair Spray vs Glossing Treatment",
+      "Magazine Quiz vs Therapy TikTok",
+      "Locker Mirror vs Front-Facing Camera",
+      "Book Fair Poster vs Algorithmic Mood Board"
     ],
     "wellnessCommonSense": [
       "Hydration Packet vs Banana + Water",
