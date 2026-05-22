@@ -8,17 +8,22 @@ const INITIAL_FORM = {
 
 const TIKTOK_HANDLE_PATTERN = /^@?[A-Za-z0-9._]{2,24}$/;
 
+function generateCaseNumber() {
+  return `RLC-${Date.now().toString(36).slice(-5).toUpperCase()}`;
+}
+
 function normalizeTikTokHandle(value) {
   const trimmed = value.trim();
   if (!trimmed) return "";
   return trimmed.startsWith("@") ? trimmed : `@${trimmed}`;
 }
 
-function buildCloudflarePayload(form) {
+function buildCloudflarePayload(form, caseNumber) {
   const tiktokHandle = normalizeTikTokHandle(form.tiktokHandle);
 
   return {
     "Form type": "Real Life Court Case",
+    "Case number": caseNumber,
     "Your case idea": form.caseIdea.trim(),
     "Case type": "Fan suggestion",
     "Side A": "",
@@ -40,7 +45,10 @@ export default function SubmitCaseForm({ draft, quickStarters = [] }) {
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState("idle");
   const [message, setMessage] = useState("");
+  const [lastCaseNumber, setLastCaseNumber] = useState("");
+  const [starterCue, setStarterCue] = useState("");
   const caseIdeaRef = useRef(null);
+  const tiktokHandleRef = useRef(null);
 
   useEffect(() => {
     if (!draft) return;
@@ -52,8 +60,11 @@ export default function SubmitCaseForm({ draft, quickStarters = [] }) {
     setErrors({});
     setStatus("idle");
     setMessage("");
+    setLastCaseNumber("");
+    setStarterCue("Starter loaded. Change the details, keep the pain.");
 
     window.requestAnimationFrame(() => {
+      window.history.replaceState(null, "", "#submit");
       document.getElementById("submit")?.scrollIntoView({
         behavior: "smooth",
         block: "start",
@@ -66,6 +77,9 @@ export default function SubmitCaseForm({ draft, quickStarters = [] }) {
     const { name, value } = event.target;
     setForm((current) => ({ ...current, [name]: value }));
     setErrors((current) => ({ ...current, [name]: "" }));
+    if (name === "caseIdea" && starterCue) {
+      setStarterCue("Edited by you. Emotionally admissible.");
+    }
     if (status !== "idle") {
       setStatus("idle");
       setMessage("");
@@ -77,6 +91,8 @@ export default function SubmitCaseForm({ draft, quickStarters = [] }) {
     setErrors({});
     setStatus("idle");
     setMessage("");
+    setLastCaseNumber("");
+    setStarterCue("Starter loaded. Change the details, keep the pain.");
     window.requestAnimationFrame(() => caseIdeaRef.current?.focus());
   }
 
@@ -88,10 +104,12 @@ export default function SubmitCaseForm({ draft, quickStarters = [] }) {
     setErrors({});
     setStatus("idle");
     setMessage("");
+    setLastCaseNumber("");
+    setStarterCue("");
     window.requestAnimationFrame(() => caseIdeaRef.current?.focus());
   }
 
-  function validateForm() {
+  function getValidationErrors() {
     const nextErrors = {};
 
     if (!form.caseIdea.trim()) {
@@ -102,21 +120,35 @@ export default function SubmitCaseForm({ draft, quickStarters = [] }) {
       nextErrors.tiktokHandle = "Use a handle like @realifecourt.";
     }
 
-    setErrors(nextErrors);
-    return Object.keys(nextErrors).length === 0;
+    return nextErrors;
   }
 
   async function handleSubmit(event) {
     event.preventDefault();
     setMessage("");
 
-    if (!validateForm()) {
+    const nextErrors = getValidationErrors();
+    setErrors(nextErrors);
+
+    if (Object.keys(nextErrors).length > 0) {
       setStatus("error");
-      setMessage("Type one idea first. The court accepts chaos, not blanks.");
+      setMessage(
+        nextErrors.caseIdea
+          ? "Type one idea first. The court accepts chaos, not blanks."
+          : "That TikTok handle needs a tiny cleanup before it can testify.",
+      );
+      window.requestAnimationFrame(() => {
+        if (nextErrors.caseIdea) {
+          caseIdeaRef.current?.focus();
+        } else {
+          tiktokHandleRef.current?.focus();
+        }
+      });
       return;
     }
 
-    const payload = buildCloudflarePayload(form);
+    const caseNumber = generateCaseNumber();
+    const payload = buildCloudflarePayload(form, caseNumber);
     const tiktokHandle = normalizeTikTokHandle(form.tiktokHandle);
     const successMessage = tiktokHandle
       ? `Your idea is in the same-day docket. If selected, we'll credit ${tiktokHandle} and it can hit TikTok today. \u2696\uFE0F`
@@ -154,6 +186,8 @@ export default function SubmitCaseForm({ draft, quickStarters = [] }) {
       });
       setErrors({});
       setStatus("success");
+      setLastCaseNumber(caseNumber);
+      setStarterCue("");
       setMessage(successMessage);
     } catch (error) {
       console.error(error);
@@ -202,6 +236,12 @@ Or: Body glitter vs highlighter drops`}
           />
         </Field>
 
+        {starterCue ? (
+          <p className="starter-loaded-cue" aria-live="polite">
+            {starterCue}
+          </p>
+        ) : null}
+
         {quickStarters.length && status !== "success" ? (
           <div className="quick-starters" aria-label="Quick idea starters">
             <p>Need a nudge?</p>
@@ -243,6 +283,7 @@ Or: Body glitter vs highlighter drops`}
               name="tiktokHandle"
               onChange={updateField}
               placeholder="@yourhandle"
+              ref={tiktokHandleRef}
               spellCheck="false"
               type="text"
               value={form.tiktokHandle}
@@ -259,6 +300,9 @@ Or: Body glitter vs highlighter drops`}
         {status === "success" ? (
           <div className="form-success-panel" role="status">
             <p className="success-kicker">Evidence accepted.</p>
+            {lastCaseNumber ? (
+              <p className="success-case-number">Case #{lastCaseNumber}</p>
+            ) : null}
             <p>{message}</p>
             <div className="success-actions">
               <button type="button" onClick={handleSubmitAnother}>

@@ -31,6 +31,10 @@ export default function WritingRoom({ cases, onChooseStarter }) {
           </button>
         ))}
       </div>
+
+      <a className="section-return-cta" href="#submit">
+        I have my own case
+      </a>
     </section>
   );
 }

@@ -620,7 +620,7 @@ main {
 .starter-card small {
   display: inline-flex;
   width: fit-content;
-  min-height: 32px;
+  min-height: 36px;
   align-items: center;
   margin-top: auto;
   padding: 0.4rem 0.62rem;
@@ -636,6 +636,36 @@ main {
   font-size: 0.76rem;
   font-weight: 950;
   text-transform: uppercase;
+}
+
+.section-return-cta {
+  display: inline-flex;
+  width: fit-content;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.1rem;
+  padding: 0.72rem 1rem;
+  border: 1px solid rgba(244, 198, 90, 0.42);
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink);
+  font-weight: 950;
+  text-align: center;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.section-return-cta:hover,
+.section-return-cta:focus-visible {
+  box-shadow: 0 16px 34px rgba(244, 198, 90, 0.16);
+  transform: translateY(-2px);
+}
+
+.docket-return-cta {
+  background: var(--teal);
+  color: #071615;
 }
 
 .submit-note {
@@ -669,7 +699,7 @@ main {
 
 .submit-landing .case-form {
   width: min(100%, 860px);
-  padding: 1.05rem;
+  padding: 1rem;
 }
 
 .case-form::before {
@@ -782,6 +812,21 @@ main {
   font-weight: 850;
 }
 
+.starter-loaded-cue {
+  display: inline-flex;
+  width: fit-content;
+  min-height: 34px;
+  align-items: center;
+  margin: 0.48rem 0 0;
+  padding: 0.42rem 0.62rem;
+  border: 1px dashed rgba(56, 221, 207, 0.42);
+  border-radius: 999px;
+  background: rgba(56, 221, 207, 0.12);
+  color: #13413d;
+  font-size: 0.82rem;
+  font-weight: 950;
+}
+
 .quick-starters {
   display: grid;
   gap: 0.44rem;
@@ -808,7 +853,7 @@ main {
 
 .quick-starter-chip {
   display: inline-flex;
-  min-height: 34px;
+  min-height: 38px;
   align-items: center;
   justify-content: center;
   padding: 0.44rem 0.62rem;
@@ -968,7 +1013,7 @@ main {
 }
 
 .submit-landing .submit-button {
-  min-height: 62px;
+  min-height: 60px;
   font-size: 1.05rem;
 }
 
@@ -1018,6 +1063,18 @@ main {
   color: #0b5952;
   font-size: 0.82rem;
   font-weight: 950;
+  text-transform: uppercase;
+}
+
+.success-case-number {
+  width: fit-content;
+  padding: 0.32rem 0.52rem;
+  border: 1px dashed rgba(11, 89, 82, 0.45);
+  border-radius: 999px;
+  background: rgba(255, 252, 246, 0.44);
+  color: #37101e;
+  font-family: "Arial Black", Impact, sans-serif;
+  font-size: 0.86rem;
   text-transform: uppercase;
 }
 
@@ -1236,6 +1293,15 @@ main {
   transition:
     transform 180ms ease,
     border-color 180ms ease;
+}
+
+.social-links a.social-link-placeholder {
+  opacity: 0.58;
+}
+
+.social-links a.social-link-placeholder:hover,
+.social-links a.social-link-placeholder:focus-visible {
+  opacity: 0.78;
 }
 
 .social-links span {
@@ -1585,10 +1651,17 @@ main {
   }
 
   .quick-starter-chip {
-    min-height: 34px;
+    min-height: 40px;
     flex: 0 0 auto;
     max-width: 240px;
-    padding: 0.42rem 0.58rem;
+    padding: 0.48rem 0.62rem;
+    font-size: 0.76rem;
+  }
+
+  .starter-loaded-cue {
+    max-width: 100%;
+    min-height: 32px;
+    margin-top: 0.4rem;
     font-size: 0.76rem;
   }
 
@@ -1609,7 +1682,7 @@ main {
   }
 
   .credit-handle-field input {
-    min-height: 38px;
+    min-height: 42px;
     padding: 0.52rem 0.62rem;
     font-size: 0.88rem;
   }
@@ -1618,6 +1691,10 @@ main {
     min-height: 58px;
     margin-top: 0.78rem;
     box-shadow: 0 16px 36px rgba(255, 62, 165, 0.34);
+  }
+
+  .submit-landing .submit-button {
+    min-height: 62px;
   }
 
   .success-actions {
@@ -1660,6 +1737,11 @@ main {
     min-height: 204px;
     flex: 0 0 min(82vw, 330px);
     scroll-snap-align: start;
+  }
+
+  .section-return-cta {
+    width: 100%;
+    min-height: 52px;
   }
 
   .card-grid {
@@ -1713,8 +1795,8 @@ main {
   }
 
   .quick-starter-chip {
-    min-height: 34px;
-    padding: 0.42rem 0.55rem;
+    min-height: 38px;
+    padding: 0.44rem 0.58rem;
     font-size: 0.76rem;
   }
 
@@ -1729,8 +1811,8 @@ main {
   }
 
   .credit-handle-field input {
-    min-height: 36px;
-    padding-block: 0.45rem;
+    min-height: 40px;
+    padding-block: 0.48rem;
   }
 }
 

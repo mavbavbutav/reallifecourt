@@ -24,6 +24,10 @@ export default function About() {
           <span key={note}>{note}</span>
         ))}
       </div>
+
+      <a className="section-return-cta" href="#submit">
+        Join the writing room
+      </a>
     </section>
   );
 }

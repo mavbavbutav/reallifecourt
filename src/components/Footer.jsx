@@ -32,6 +32,7 @@ export default function Footer() {
         <nav className="social-links" aria-label="Social links">
           {socials.map((social) => (
             <a
+              className={social.placeholder ? "social-link-placeholder" : undefined}
               href={social.href}
               key={social.label}
               target={social.external ? "_blank" : undefined}

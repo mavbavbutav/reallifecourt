@@ -16,6 +16,10 @@ export default function Docket({ cases }) {
           <CaseCard caseItem={caseItem} key={caseItem.title} variant="docket" />
         ))}
       </div>
+
+      <a className="section-return-cta docket-return-cta" href="#submit">
+        Got a better case? Put it on trial.
+      </a>
     </section>
   );
 }
