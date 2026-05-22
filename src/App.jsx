@@ -22,7 +22,7 @@ export default function App() {
     <>
       <Header />
       <main>
-        <SubmitCaseForm draft={caseDraft} />
+        <SubmitCaseForm draft={caseDraft} quickStarters={cases.fanStarters.slice(0, 3)} />
         <WritingRoom cases={cases.fanStarters} onChooseStarter={handleChooseStarter} />
         <WhichWasWorse cases={cases.whichWasWorse} onChooseStarter={handleChooseStarter} />
         <Docket cases={cases.docket} />

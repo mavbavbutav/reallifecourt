@@ -3,6 +3,7 @@
     {
       "title": "Locker Combination Panic vs Password Reset Loop",
       "category": "Which Was Worse?",
+      "chipLabel": "Locker panic vs password reset",
       "sideA": "Locker Combination Panic",
       "sideB": "Password Reset Loop",
       "prompt": "Both had you sweating in public while a line formed behind you."
@@ -10,6 +11,7 @@
     {
       "title": "Roll-On Body Glitter vs Highlighter Drops",
       "category": "Beauty/Fashion Crime",
+      "chipLabel": "Body glitter vs highlighter drops",
       "sideA": "Roll-On Body Glitter",
       "sideB": "Highlighter Drops",
       "prompt": "One stuck to your Limited Too shirt. One stuck to your bank statement."
@@ -17,6 +19,7 @@
     {
       "title": "Forgotten Gym Clothes vs Camera-On Meeting",
       "category": "Middle School Trauma",
+      "chipLabel": "Gym clothes vs camera-on meeting",
       "sideA": "Forgotten Gym Clothes",
       "sideB": "Camera-On Meeting",
       "prompt": "Different decades, same immediate need to vanish."

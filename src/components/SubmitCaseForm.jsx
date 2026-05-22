@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { CASE_FORM_ENDPOINT } from "../../config/siteConfig.js";
+import { CASE_FORM_ENDPOINT, siteConfig } from "../../config/siteConfig.js";
 
 const INITIAL_FORM = {
   caseIdea: "",
@@ -22,7 +22,7 @@ function buildCloudflarePayload(form) {
   };
 }
 
-export default function SubmitCaseForm({ draft }) {
+export default function SubmitCaseForm({ draft, quickStarters = [] }) {
   const [form, setForm] = useState(INITIAL_FORM);
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState("idle");
@@ -53,6 +53,26 @@ export default function SubmitCaseForm({ draft }) {
     const { name, value } = event.target;
     setForm((current) => ({ ...current, [name]: value }));
     setErrors((current) => ({ ...current, [name]: "" }));
+    if (status !== "idle") {
+      setStatus("idle");
+      setMessage("");
+    }
+  }
+
+  function chooseQuickStarter(starter) {
+    setForm((current) => ({ ...current, caseIdea: starter.title }));
+    setErrors({});
+    setStatus("idle");
+    setMessage("");
+    window.requestAnimationFrame(() => caseIdeaRef.current?.focus());
+  }
+
+  function handleSubmitAnother() {
+    setForm(INITIAL_FORM);
+    setErrors({});
+    setStatus("idle");
+    setMessage("");
+    window.requestAnimationFrame(() => caseIdeaRef.current?.focus());
   }
 
   function validateForm() {
@@ -113,7 +133,7 @@ export default function SubmitCaseForm({ draft }) {
     } catch (error) {
       console.error(error);
       setStatus("error");
-      setMessage("The clerk dropped the file. Try submitting again in a minute.");
+      setMessage("Could not submit yet. Your idea is still here. Try again in a minute.");
     }
   }
 
@@ -126,11 +146,11 @@ export default function SubmitCaseForm({ draft }) {
         <h1>Real Life Court</h1>
         <h2>Drop the idea. That's it.</h2>
         <p>
-          Type the middle-school memory, wellness gimmick, or modern nonsense.
-          We'll figure out the case angle.
+          No login. No categories. Type the memory, gimmick, or modern
+          nonsense and we'll find the case angle.
         </p>
         <p className="submit-note">
-          Selected ideas can be posted on TikTok the same day.
+          Selected ideas can hit TikTok the same day.
         </p>
       </div>
 
@@ -139,31 +159,67 @@ export default function SubmitCaseForm({ draft }) {
           error={errors.caseIdea}
           hint="One messy sentence is perfect."
           id="caseIdea"
-          label="Your idea"
+          label="Type it here"
           required
         >
           <textarea
             aria-describedby={errors.caseIdea ? "caseIdea-error" : "caseIdea-hint"}
             aria-invalid={Boolean(errors.caseIdea)}
+            aria-required="true"
             id="caseIdea"
             name="caseIdea"
             onChange={updateField}
-            placeholder={`Example: Locker Combination Panic vs Password Reset Loop
-Or: Roll-On Body Glitter vs Highlighter Drops`}
+            placeholder={`Example: Locker panic vs password reset
+Or: Body glitter vs highlighter drops`}
             ref={caseIdeaRef}
             rows="7"
             value={form.caseIdea}
           />
         </Field>
 
-        <button className="button button-primary submit-button" disabled={isSubmitting} type="submit">
-          {isSubmitting ? "Submitting..." : "Submit Idea"}
-        </button>
+        {quickStarters.length && status !== "success" ? (
+          <div className="quick-starters" aria-label="Quick idea starters">
+            <p>Need a nudge?</p>
+            <div className="quick-starter-list">
+              {quickStarters.map((starter) => (
+                <button
+                  className="quick-starter-chip"
+                  key={starter.title}
+                  onClick={() => chooseQuickStarter(starter)}
+                  type="button"
+                >
+                  {starter.chipLabel || starter.title}
+                </button>
+              ))}
+            </div>
+          </div>
+        ) : null}
 
-        {message ? (
+        {status !== "success" ? (
+          <button className="button button-primary submit-button" disabled={isSubmitting} type="submit">
+            {isSubmitting ? "Submitting..." : "Submit Idea"}
+          </button>
+        ) : null}
+
+        {status === "success" ? (
+          <div className="form-success-panel" role="status">
+            <p className="success-kicker">Evidence accepted.</p>
+            <p>{message}</p>
+            <div className="success-actions">
+              <button type="button" onClick={handleSubmitAnother}>
+                Submit another idea
+              </button>
+              <a href={siteConfig.socialLinks.tiktok} target="_blank" rel="noreferrer">
+                Watch on TikTok
+              </a>
+            </div>
+          </div>
+        ) : null}
+
+        {message && status === "error" ? (
           <p
-            className={`form-message ${status === "success" ? "form-message-success" : "form-message-error"}`}
-            role={status === "success" ? "status" : "alert"}
+            className="form-message form-message-error"
+            role="alert"
           >
             {message}
           </p>
@@ -186,7 +242,7 @@ function Field({
     <div className={`form-field ${className}`}>
       <label htmlFor={id}>
         {label}
-        {required ? <span aria-hidden="true"> *</span> : null}
+        {required ? <span className="sr-only"> required</span> : null}
       </label>
       {children}
       {hint && !error ? (
