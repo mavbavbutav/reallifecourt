@@ -77,8 +77,8 @@ export default function SubmitCaseForm({ draft }) {
     }
 
     const payload = buildCloudflarePayload(form);
-    const fallbackSuccessMessage =
-      "Your case has been entered into evidence. Court is now emotionally reviewing it. ⚖️";
+    const successMessage =
+      "Your idea is in the same-day docket. Selected cases can hit TikTok today. ⚖️";
 
     setStatus("submitting");
 
@@ -109,7 +109,7 @@ export default function SubmitCaseForm({ draft }) {
       setForm(INITIAL_FORM);
       setErrors({});
       setStatus("success");
-      setMessage(result.message || fallbackSuccessMessage);
+      setMessage(successMessage);
     } catch (error) {
       console.error(error);
       setStatus("error");
@@ -130,7 +130,7 @@ export default function SubmitCaseForm({ draft }) {
           should go on trial next.
         </p>
         <p className="submit-note">
-          No categories. No homework. Just drop the thought.
+          No categories. No homework. Same-day TikTok posting for selected ideas.
         </p>
       </div>
 
