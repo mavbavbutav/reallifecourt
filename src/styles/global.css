@@ -20,6 +20,8 @@
   --line-strong: rgba(244, 198, 90, 0.48);
   --shadow: 0 24px 80px rgba(0, 0, 0, 0.36);
   --shadow-hot: 0 22px 52px rgba(255, 62, 165, 0.2);
+  --glitter: rgba(255, 248, 234, 0.72);
+  --gold-glow: rgba(244, 198, 90, 0.24);
   --radius-card: 8px;
   --radius-control: 14px;
   --section-space: 5rem;
@@ -71,8 +73,15 @@ body::after {
   inset: 0;
   z-index: -1;
   background:
+    radial-gradient(circle at 8% 19%, var(--glitter) 0 1px, transparent 2px),
+    radial-gradient(circle at 86% 13%, rgba(56, 221, 207, 0.62) 0 1px, transparent 2px),
+    radial-gradient(circle at 19% 76%, rgba(255, 62, 165, 0.54) 0 1px, transparent 2px),
+    radial-gradient(circle at 72% 83%, rgba(244, 198, 90, 0.5) 0 1px, transparent 2px),
+    radial-gradient(circle at 91% 46%, rgba(255, 248, 234, 0.46) 0 1px, transparent 2px),
+    radial-gradient(circle at 34% 53%, rgba(244, 198, 90, 0.4) 0 1px, transparent 2px),
     linear-gradient(116deg, transparent 0 38%, rgba(244, 198, 90, 0.045) 38% 39%, transparent 39%),
     linear-gradient(64deg, transparent 0 68%, rgba(159, 109, 255, 0.05) 68% 69%, transparent 69%);
+  animation: glitter-twinkle 7s ease-in-out infinite alternate;
   content: "";
   pointer-events: none;
 }
@@ -123,6 +132,41 @@ textarea:focus-visible {
   white-space: nowrap;
 }
 
+@keyframes glitter-twinkle {
+  0% {
+    opacity: 0.5;
+    transform: translate3d(0, 0, 0);
+  }
+
+  100% {
+    opacity: 0.95;
+    transform: translate3d(0, -6px, 0);
+  }
+}
+
+@keyframes shimmer-sweep {
+  0%,
+  42% {
+    transform: translateX(-115%);
+  }
+
+  72%,
+  100% {
+    transform: translateX(115%);
+  }
+}
+
+@keyframes soft-pulse {
+  0%,
+  100% {
+    opacity: 0.68;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
 .section-shell {
   width: min(100% - 2rem, 1120px);
   margin-inline: auto;
@@ -157,6 +201,7 @@ main {
 }
 
 .brand-mark {
+  position: relative;
   display: grid;
   width: 46px;
   height: 46px;
@@ -164,6 +209,7 @@ main {
   flex: 0 0 auto;
   border: 2px solid var(--gold);
   border-radius: 50%;
+  overflow: hidden;
   background: linear-gradient(145deg, #280813, #5d102b);
   color: var(--gold);
   font-family: "Arial Black", Impact, sans-serif;
@@ -171,6 +217,15 @@ main {
   box-shadow:
     0 10px 34px rgba(244, 198, 90, 0.18),
     inset 0 1px 0 rgba(255, 248, 234, 0.28);
+}
+
+.brand-mark::after {
+  position: absolute;
+  inset: -40% 18% 42% -30%;
+  background: rgba(255, 248, 234, 0.28);
+  content: "";
+  filter: blur(2px);
+  transform: rotate(-28deg);
 }
 
 .brand-name,
@@ -344,25 +399,27 @@ main {
     linear-gradient(135deg, var(--pink), #ff78ce);
   color: #16070d;
   box-shadow:
-    0 16px 34px rgba(255, 62, 165, 0.34),
+    0 18px 38px rgba(255, 62, 165, 0.4),
+    0 0 32px rgba(244, 198, 90, 0.12),
     0 0 0 1px rgba(255, 255, 255, 0.16),
     inset 0 1px 0 rgba(255, 255, 255, 0.38);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.24);
 }
 
 .button-primary::after {
   position: absolute;
   inset: 0;
   background: linear-gradient(110deg, transparent 0 32%, rgba(255, 255, 255, 0.28) 44%, transparent 58%);
+  animation: shimmer-sweep 5.6s ease-in-out infinite;
   content: "";
   opacity: 0.36;
   pointer-events: none;
   transition: transform 260ms ease;
-  transform: translateX(-45%);
 }
 
 .button-primary:hover::after,
 .button-primary:focus-visible::after {
-  transform: translateX(38%);
+  animation-duration: 1.4s;
 }
 
 .button-secondary {
@@ -468,6 +525,23 @@ main {
   transform: translateX(-50%);
 }
 
+.submit-section::after {
+  position: absolute;
+  inset: 0 50%;
+  z-index: -1;
+  width: 100vw;
+  background:
+    radial-gradient(circle at 14% 14%, rgba(244, 198, 90, 0.18) 0 1px, transparent 2px),
+    radial-gradient(circle at 80% 22%, rgba(255, 62, 165, 0.2) 0 1px, transparent 2px),
+    radial-gradient(circle at 67% 68%, rgba(56, 221, 207, 0.16) 0 1px, transparent 2px),
+    radial-gradient(circle at 72% 34%, rgba(244, 198, 90, 0.12), transparent 18%),
+    radial-gradient(circle at 22% 82%, rgba(255, 62, 165, 0.09), transparent 22%);
+  animation: soft-pulse 6s ease-in-out infinite;
+  content: "";
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+
 .writing-room-section {
   padding-bottom: 1.5rem;
 }
@@ -493,6 +567,8 @@ main {
   text-transform: uppercase;
   text-wrap: balance;
   text-shadow:
+    0 0 18px rgba(244, 198, 90, 0.14),
+    0 0 34px rgba(255, 62, 165, 0.08),
     0 2px 0 rgba(244, 198, 90, 0.18),
     0 8px 32px rgba(0, 0, 0, 0.42);
 }
@@ -520,6 +596,7 @@ main {
 }
 
 .section-stamp {
+  position: relative;
   display: inline-flex;
   width: fit-content;
   min-height: 34px;
@@ -534,10 +611,26 @@ main {
   color: var(--teal);
   font-size: 0.78rem;
   font-weight: 950;
+  overflow: hidden;
   box-shadow:
     0 10px 24px rgba(56, 221, 207, 0.08),
     inset 0 1px 0 rgba(255, 255, 255, 0.12);
   text-transform: uppercase;
+}
+
+.section-stamp::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 0 34%, rgba(255, 255, 255, 0.36) 48%, transparent 62%);
+  content: "";
+  opacity: 0.7;
+  pointer-events: none;
+  transform: translateX(-115%);
+}
+
+.section-stamp:hover::after,
+.section-stamp:focus-within::after {
+  animation: shimmer-sweep 1.4s ease;
 }
 
 .section-heading h2,
@@ -717,11 +810,15 @@ main {
   border: 1px dashed rgba(244, 198, 90, 0.46);
   border-radius: var(--radius-card);
   background:
+    radial-gradient(circle at 95% 22%, rgba(255, 248, 234, 0.26), transparent 18%),
     linear-gradient(180deg, rgba(255, 242, 199, 0.12), rgba(255, 242, 199, 0.05)),
     rgba(255, 242, 199, 0.07);
   color: var(--paper) !important;
   font-size: 0.96rem;
   font-weight: 900;
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .case-form {
@@ -738,8 +835,15 @@ main {
   color: var(--ink);
   box-shadow:
     0 28px 74px rgba(0, 0, 0, 0.42),
+    0 0 42px var(--gold-glow),
+    0 0 46px rgba(255, 62, 165, 0.12),
     0 0 0 1px rgba(255, 248, 234, 0.18),
     inset 0 1px 0 rgba(255, 255, 255, 0.72);
+}
+
+.case-form > * {
+  position: relative;
+  z-index: 1;
 }
 
 .submit-landing .case-form {
@@ -763,6 +867,23 @@ main {
   font-weight: 950;
   box-shadow: 0 10px 20px rgba(186, 23, 109, 0.18);
   transform: rotate(4deg);
+  z-index: 2;
+}
+
+.case-form::after {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 4% 8%, rgba(56, 221, 207, 0.38) 0 1px, transparent 2px),
+    radial-gradient(circle at 94% 26%, rgba(255, 62, 165, 0.34) 0 1px, transparent 2px),
+    radial-gradient(circle at 82% 92%, rgba(244, 198, 90, 0.42) 0 1px, transparent 2px),
+    linear-gradient(112deg, transparent 0 32%, rgba(255, 255, 255, 0.3) 44%, transparent 56%),
+    radial-gradient(circle at 96% 6%, rgba(255, 255, 255, 0.28), transparent 12%);
+  content: "";
+  opacity: 0.34;
+  pointer-events: none;
 }
 
 .form-grid {
@@ -846,6 +967,7 @@ main {
   border-color: var(--pink-deep);
   box-shadow:
     0 0 0 4px rgba(255, 62, 165, 0.18),
+    0 12px 26px rgba(186, 23, 109, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.86);
 }
 
@@ -886,6 +1008,7 @@ main {
 }
 
 .quick-starters {
+  position: relative;
   display: grid;
   gap: 0.44rem;
   margin-top: 0.64rem;
@@ -896,6 +1019,22 @@ main {
     linear-gradient(90deg, rgba(255, 62, 165, 0.08), rgba(56, 221, 207, 0.1)),
     rgba(255, 255, 255, 0.18);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42);
+}
+
+.quick-starters::after {
+  position: absolute;
+  top: -0.14rem;
+  right: 1rem;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--pink-deep);
+  box-shadow:
+    -16px 9px 0 rgba(56, 221, 207, 0.55),
+    -34px 1px 0 rgba(244, 198, 90, 0.55);
+  content: "";
+  opacity: 0.56;
+  pointer-events: none;
 }
 
 .quick-starters p {
@@ -1102,6 +1241,11 @@ main {
 .submit-landing .submit-button {
   min-height: 60px;
   font-size: 1.05rem;
+  box-shadow:
+    0 22px 52px rgba(255, 62, 165, 0.28),
+    0 0 30px rgba(244, 198, 90, 0.15),
+    0 0 0 1px rgba(255, 255, 255, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.46);
 }
 
 .submit-button:disabled {
@@ -1238,6 +1382,10 @@ main {
     0 18px 46px rgba(0, 0, 0, 0.26),
     0 0 0 1px rgba(255, 255, 255, 0.035),
     inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
 }
 
 .case-card::after {
@@ -1248,7 +1396,18 @@ main {
   content: "EVIDENCE";
   font-size: 0.72rem;
   font-weight: 950;
+  text-shadow: 0 0 14px rgba(244, 198, 90, 0.18);
   transform: rotate(-6deg);
+}
+
+.case-card:hover,
+.case-card:focus-within {
+  border-color: rgba(56, 221, 207, 0.56);
+  box-shadow:
+    0 22px 54px rgba(0, 0, 0, 0.3),
+    0 0 26px rgba(56, 221, 207, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.09);
+  transform: translateY(-2px);
 }
 
 .case-card-topline {
@@ -1325,6 +1484,7 @@ main {
   border-radius: 999px;
   color: var(--ink);
   font-size: 0.7rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.44);
   white-space: nowrap;
 }
 
@@ -1912,6 +2072,11 @@ main {
     padding: 0.42rem;
   }
 
+  .quick-starters::after {
+    top: -0.1rem;
+    right: 0.82rem;
+  }
+
   .quick-starters p {
     display: none;
   }
@@ -1988,6 +2153,8 @@ main {
   *,
   *::before,
   *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
   }
