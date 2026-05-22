@@ -838,11 +838,21 @@ main {
 }
 
 .quick-starters p {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
   margin: 0;
   color: #7c1739;
   font-size: 0.82rem;
   font-weight: 950;
   text-transform: uppercase;
+}
+
+.quick-starters p span {
+  color: rgba(55, 16, 30, 0.58);
+  font-size: 0.72rem;
+  white-space: nowrap;
 }
 
 .quick-starter-list {
@@ -1078,6 +1088,11 @@ main {
   text-transform: uppercase;
 }
 
+.success-reprompt {
+  color: #37101e;
+  font-size: 0.94rem;
+}
+
 .success-actions {
   display: grid;
   gap: 0.55rem;
@@ -1189,10 +1204,14 @@ main {
 }
 
 .case-card-docket {
-  min-height: 132px;
+  min-height: 166px;
   background:
     linear-gradient(90deg, rgba(255, 62, 165, 0.11), transparent),
     rgba(17, 6, 10, 0.82);
+}
+
+.case-card-docket .case-card-link {
+  background: rgba(255, 242, 199, 0.94);
 }
 
 .case-status {
@@ -1293,15 +1312,6 @@ main {
   transition:
     transform 180ms ease,
     border-color 180ms ease;
-}
-
-.social-links a.social-link-placeholder {
-  opacity: 0.58;
-}
-
-.social-links a.social-link-placeholder:hover,
-.social-links a.social-link-placeholder:focus-visible {
-  opacity: 0.78;
 }
 
 .social-links span {

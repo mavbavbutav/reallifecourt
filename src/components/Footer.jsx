@@ -18,6 +18,8 @@ const socials = [
   { label: "Email", href: siteConfig.socialLinks.email, mark: "@", placeholder: true },
 ];
 
+const visibleSocials = socials.filter((social) => !social.placeholder);
+
 export default function Footer() {
   return (
     <footer className="site-footer" id="social">
@@ -30,9 +32,8 @@ export default function Footer() {
         </div>
 
         <nav className="social-links" aria-label="Social links">
-          {socials.map((social) => (
+          {visibleSocials.map((social) => (
             <a
-              className={social.placeholder ? "social-link-placeholder" : undefined}
               href={social.href}
               key={social.label}
               target={social.external ? "_blank" : undefined}

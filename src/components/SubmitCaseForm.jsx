@@ -96,6 +96,13 @@ export default function SubmitCaseForm({ draft, quickStarters = [] }) {
     window.requestAnimationFrame(() => caseIdeaRef.current?.focus());
   }
 
+  function chooseRandomStarter() {
+    if (!quickStarters.length) return;
+
+    const starter = quickStarters[Math.floor(Math.random() * quickStarters.length)];
+    chooseQuickStarter(starter);
+  }
+
   function handleSubmitAnother() {
     setForm((current) => ({
       ...INITIAL_FORM,
@@ -216,7 +223,7 @@ export default function SubmitCaseForm({ draft, quickStarters = [] }) {
       <form className="case-form" onSubmit={handleSubmit} noValidate>
         <Field
           error={errors.caseIdea}
-          hint="One messy sentence is perfect."
+          hint="Best detail: smell, outfit, bus ride."
           id="caseIdea"
           label="Type it here"
           required
@@ -244,7 +251,10 @@ Or: Body glitter vs highlighter drops`}
 
         {quickStarters.length && status !== "success" ? (
           <div className="quick-starters" aria-label="Quick idea starters">
-            <p>Need a nudge?</p>
+            <p>
+              Need a nudge?
+              <span>Swipe for more</span>
+            </p>
             <div className="quick-starter-list">
               {quickStarters.map((starter) => (
                 <button
@@ -263,12 +273,12 @@ Or: Body glitter vs highlighter drops`}
         {status !== "success" ? (
           <div className="credit-handle-field">
             <div>
-              <label htmlFor="tiktokHandle">Want credit?</label>
+              <label htmlFor="tiktokHandle">TikTok @ for credit</label>
               <p
                 className={errors.tiktokHandle ? "credit-handle-error" : ""}
                 id={errors.tiktokHandle ? "tiktokHandle-error" : "tiktokHandle-hint"}
               >
-                {errors.tiktokHandle || "Optional TikTok @. Leave blank to stay anonymous."}
+                {errors.tiktokHandle || "Optional. Leave blank to stay anonymous."}
               </p>
             </div>
             <input
@@ -304,10 +314,16 @@ Or: Body glitter vs highlighter drops`}
               <p className="success-case-number">Case #{lastCaseNumber}</p>
             ) : null}
             <p>{message}</p>
+            <p className="success-reprompt">Got another one? The court is still open.</p>
             <div className="success-actions">
               <button type="button" onClick={handleSubmitAnother}>
                 Submit another idea
               </button>
+              {quickStarters.length ? (
+                <button type="button" onClick={chooseRandomStarter}>
+                  Try a starter
+                </button>
+              ) : null}
               <a href={siteConfig.socialLinks.tiktok} target="_blank" rel="noreferrer">
                 Watch on TikTok
               </a>

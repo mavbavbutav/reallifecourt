@@ -13,7 +13,13 @@ export default function Docket({ cases }) {
 
       <div className="docket-list">
         {cases.map((caseItem) => (
-          <CaseCard caseItem={caseItem} key={caseItem.title} variant="docket" />
+          <CaseCard
+            caseItem={caseItem}
+            ctaLabel="Challenge this case"
+            href="#submit"
+            key={caseItem.title}
+            variant="docket"
+          />
         ))}
       </div>
 
