@@ -118,10 +118,6 @@ main {
   overflow: hidden;
 }
 
-.mobile-case-dock {
-  display: none;
-}
-
 .site-header {
   position: sticky;
   top: 0;
@@ -434,6 +430,36 @@ main {
   padding-bottom: 1.5rem;
 }
 
+.submit-landing {
+  display: grid;
+  min-height: calc(100svh - 72px);
+  align-content: center;
+  padding-block: 2.4rem 3rem;
+}
+
+.submit-landing .section-heading {
+  max-width: 860px;
+  margin-bottom: 1.1rem;
+}
+
+.submit-landing h1 {
+  margin: 0;
+  color: var(--text);
+  font-family: "Arial Black", Impact, "Trebuchet MS", sans-serif;
+  font-size: 3.5rem;
+  line-height: 0.95;
+  text-transform: uppercase;
+  text-wrap: balance;
+  text-shadow: 0 8px 32px rgba(0, 0, 0, 0.38);
+}
+
+.submit-landing .section-heading h2 {
+  margin-top: 0.55rem;
+  color: var(--gold);
+  font-size: 1.55rem;
+  line-height: 1.05;
+}
+
 .section-heading {
   max-width: 760px;
   margin-bottom: 1.6rem;
@@ -625,6 +651,11 @@ main {
     inset 0 1px 0 rgba(255, 255, 255, 0.72);
 }
 
+.submit-landing .case-form {
+  width: min(100%, 860px);
+  padding: 1.05rem;
+}
+
 .case-form::before {
   position: absolute;
   top: -16px;
@@ -697,6 +728,13 @@ main {
 }
 
 .form-field textarea {
+  resize: vertical;
+}
+
+.submit-landing .form-field textarea {
+  min-height: 210px;
+  font-size: 1.08rem;
+  line-height: 1.45;
   resize: vertical;
 }
 
@@ -805,6 +843,11 @@ main {
 .submit-button {
   width: 100%;
   margin-top: 1.15rem;
+}
+
+.submit-landing .submit-button {
+  min-height: 62px;
+  font-size: 1.05rem;
 }
 
 .submit-button:disabled {
@@ -1149,10 +1192,6 @@ main {
     --section-space: 3.6rem;
   }
 
-  body {
-    padding-bottom: calc(88px + env(safe-area-inset-bottom));
-  }
-
   .section-shell {
     width: min(100% - 1.4rem, 1120px);
   }
@@ -1264,7 +1303,12 @@ main {
   }
 
   .submit-section {
-    padding-top: 2.8rem;
+    padding-top: 2.6rem;
+  }
+
+  .submit-landing {
+    min-height: calc(100svh - 64px);
+    padding-block: 1.6rem 2.4rem;
   }
 
   .section-heading {
@@ -1283,6 +1327,15 @@ main {
     font-size: 2.15rem;
   }
 
+  .submit-landing h1 {
+    font-size: 3rem;
+  }
+
+  .submit-landing .section-heading h2 {
+    margin-top: 0.45rem;
+    font-size: 1.32rem;
+  }
+
   .section-heading p,
   .writing-room-copy p {
     margin-block: 0.75rem 0;
@@ -1297,6 +1350,10 @@ main {
   .case-form {
     padding: 0.95rem;
     box-shadow: 0 18px 54px rgba(0, 0, 0, 0.34);
+  }
+
+  .submit-landing .case-form {
+    padding: 0.95rem;
   }
 
   .case-form::before {
@@ -1320,6 +1377,11 @@ main {
     min-height: 52px;
     padding: 0.78rem 0.82rem;
     font-size: 1rem;
+  }
+
+  .submit-landing .form-field textarea {
+    min-height: 235px;
+    font-size: 1.05rem;
   }
 
   .submit-button {
@@ -1375,68 +1437,6 @@ main {
     padding: 0.95rem;
   }
 
-  .mobile-case-dock {
-    position: fixed;
-    right: 0.75rem;
-    bottom: calc(0.75rem + env(safe-area-inset-bottom));
-    left: 0.75rem;
-    z-index: 50;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    max-width: 430px;
-    margin-inline: auto;
-    gap: 0.6rem;
-    align-items: center;
-    padding: 0.55rem;
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    border-radius: var(--radius-control);
-    background: rgba(9, 5, 8, 0.88);
-    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.46);
-    backdrop-filter: blur(18px);
-    transition:
-      opacity 180ms ease,
-      transform 180ms ease;
-  }
-
-  .mobile-case-dock-hidden {
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(calc(100% + 1rem));
-  }
-
-  .mobile-case-dock a {
-    display: inline-flex;
-    min-height: 50px;
-    align-items: center;
-    justify-content: center;
-    border-radius: 999px;
-    font-weight: 950;
-  }
-
-  .mobile-dock-primary {
-    flex-direction: column;
-    gap: 0.05rem;
-    background: linear-gradient(135deg, var(--pink), #ff83d3);
-    color: #17060d;
-  }
-
-  .mobile-dock-primary span {
-    font-size: 0.68rem;
-    text-transform: uppercase;
-  }
-
-  .mobile-dock-primary strong {
-    font-size: 0.98rem;
-  }
-
-  .mobile-dock-secondary {
-    min-width: 118px;
-    padding-inline: 0.9rem;
-    border: 1px solid rgba(244, 198, 90, 0.5);
-    background: rgba(255, 242, 199, 0.11);
-    color: var(--paper);
-    font-size: 0.88rem;
-  }
 }
 
 @media (max-width: 430px) {
