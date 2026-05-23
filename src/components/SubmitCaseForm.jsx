@@ -7,6 +7,7 @@ const INITIAL_FORM = {
 };
 
 const TIKTOK_HANDLE_PATTERN = /^@?[A-Za-z0-9._]{2,24}$/;
+const TIKTOK_PROFILE_PATTERN = /(?:https?:\/\/)?(?:www\.)?tiktok\.com\/@([A-Za-z0-9._]{2,24})/i;
 
 function generateCaseNumber() {
   return `RLC-${Date.now().toString(36).slice(-5).toUpperCase()}`;
@@ -15,7 +16,18 @@ function generateCaseNumber() {
 function normalizeTikTokHandle(value) {
   const trimmed = value.trim();
   if (!trimmed) return "";
+
+  const profileMatch = trimmed.match(TIKTOK_PROFILE_PATTERN);
+  if (profileMatch?.[1]) {
+    return `@${profileMatch[1]}`;
+  }
+
   return trimmed.startsWith("@") ? trimmed : `@${trimmed}`;
+}
+
+function isValidTikTokHandle(value) {
+  if (!value.trim()) return false;
+  return TIKTOK_HANDLE_PATTERN.test(normalizeTikTokHandle(value));
 }
 
 function buildCloudflarePayload(form, caseNumber) {
@@ -75,7 +87,12 @@ export default function SubmitCaseForm({ draft, quickStarters = [] }) {
 
   function updateField(event) {
     const { name, value } = event.target;
-    setForm((current) => ({ ...current, [name]: value }));
+    const nextValue =
+      name === "tiktokHandle" && TIKTOK_PROFILE_PATTERN.test(value)
+        ? normalizeTikTokHandle(value)
+        : value;
+
+    setForm((current) => ({ ...current, [name]: nextValue }));
     setErrors((current) => ({ ...current, [name]: "" }));
     if (name === "caseIdea" && starterCue) {
       setStarterCue("Edited by you. Emotionally admissible.");
@@ -83,6 +100,15 @@ export default function SubmitCaseForm({ draft, quickStarters = [] }) {
     if (status !== "idle") {
       setStatus("idle");
       setMessage("");
+    }
+  }
+
+  function normalizeHandleField() {
+    if (!form.tiktokHandle.trim()) return;
+
+    const normalizedHandle = normalizeTikTokHandle(form.tiktokHandle);
+    if (TIKTOK_HANDLE_PATTERN.test(normalizedHandle)) {
+      setForm((current) => ({ ...current, tiktokHandle: normalizedHandle }));
     }
   }
 
@@ -123,8 +149,8 @@ export default function SubmitCaseForm({ draft, quickStarters = [] }) {
       nextErrors.caseIdea = "Type the idea first. One sentence is enough.";
     }
 
-    if (form.tiktokHandle.trim() && !TIKTOK_HANDLE_PATTERN.test(form.tiktokHandle.trim())) {
-      nextErrors.tiktokHandle = "Use a handle like @realifecourt.";
+    if (form.tiktokHandle.trim() && !isValidTikTokHandle(form.tiktokHandle)) {
+      nextErrors.tiktokHandle = "Use @yourhandle or paste your TikTok profile link.";
     }
 
     return nextErrors;
@@ -204,6 +230,12 @@ export default function SubmitCaseForm({ draft, quickStarters = [] }) {
   }
 
   const isSubmitting = status === "submitting";
+  const hasIdea = Boolean(form.caseIdea.trim());
+  const normalizedHandle = normalizeTikTokHandle(form.tiktokHandle);
+  const hasValidHandle = isValidTikTokHandle(form.tiktokHandle);
+  const handleHint = hasValidHandle
+    ? `Credit ready: ${normalizedHandle}`
+    : "Optional. Leave blank to stay anonymous.";
 
   return (
     <section className="submit-section submit-landing section-shell" id="submit">
@@ -223,7 +255,7 @@ export default function SubmitCaseForm({ draft, quickStarters = [] }) {
       <form className="case-form" onSubmit={handleSubmit} noValidate>
         <Field
           error={errors.caseIdea}
-          hint="Best detail: smell, outfit, bus ride."
+          hint={hasIdea ? "Looks admissible. Weird details help it win." : "Best detail: smell, outfit, bus ride."}
           id="caseIdea"
           label="Type it here"
           required
@@ -275,10 +307,10 @@ Or: Body glitter vs highlighter drops`}
             <div>
               <label htmlFor="tiktokHandle">TikTok @ for credit</label>
               <p
-                className={errors.tiktokHandle ? "credit-handle-error" : ""}
+                className={errors.tiktokHandle ? "credit-handle-error" : hasValidHandle ? "credit-handle-ready" : ""}
                 id={errors.tiktokHandle ? "tiktokHandle-error" : "tiktokHandle-hint"}
               >
-                {errors.tiktokHandle || "Optional. Leave blank to stay anonymous."}
+                {errors.tiktokHandle || handleHint}
               </p>
             </div>
             <input
@@ -289,10 +321,11 @@ Or: Body glitter vs highlighter drops`}
               autoCorrect="off"
               id="tiktokHandle"
               inputMode="text"
-              maxLength="25"
+              maxLength="120"
               name="tiktokHandle"
+              onBlur={normalizeHandleField}
               onChange={updateField}
-              placeholder="@yourhandle"
+              placeholder="@handle or link"
               ref={tiktokHandleRef}
               spellCheck="false"
               type="text"

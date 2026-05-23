@@ -1214,6 +1214,10 @@ main {
   color: #8c003d !important;
 }
 
+.credit-handle-ready {
+  color: #0b5952 !important;
+}
+
 .credit-handle-field input {
   width: 100%;
   min-height: 42px;
