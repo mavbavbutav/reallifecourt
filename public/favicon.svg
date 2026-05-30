@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Real Life Court logo mark">
+  <rect width="64" height="64" rx="14" fill="#2b0714"/>
+  <circle cx="32" cy="32" r="28" fill="#5d102b" stroke="#f4c65a" stroke-width="3"/>
+  <path d="M11 19c10-7 26-9 42-3-4 5-12 8-24 10-8 1-14-1-18-7Z" fill="#fff8ea" opacity=".16"/>
+  <text x="32" y="39" text-anchor="middle" font-family="Arial Black, Impact, sans-serif" font-size="18" fill="#fff8ea">RLC</text>
+</svg>
